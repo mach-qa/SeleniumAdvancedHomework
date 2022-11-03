@@ -35,7 +35,7 @@ public class SearchTest extends Pages {
     @Test
     @DisplayName("Dropdown Search")
     @Tag("Search")
-    public void dropdownShouldContainEnteredText () throws InterruptedException {
+    public void dropdownShouldContainEnteredText () {
         topMenuPage.fillSearchInputField(System.getProperty("searchInput"));
 
         topMenuPage.waitForDropdownList();
