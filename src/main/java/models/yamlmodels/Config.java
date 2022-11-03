@@ -1,4 +1,4 @@
-package helpers.configuration.yamlmodels;
+package models.yamlmodels;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Config {
 
-    public String activeEnvironment;
-    public Environments environment;
+    public Environment environment;
     public Browser browser;
+    public TestData testData;
 }

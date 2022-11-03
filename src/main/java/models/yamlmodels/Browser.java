@@ -1,4 +1,4 @@
-package helpers.configuration.yamlmodels;
+package models.yamlmodels;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;

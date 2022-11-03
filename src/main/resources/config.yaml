@@ -1,18 +1,12 @@
-activeEnvironment: test
 browser:
   browserName: chrome
   attachScreenshot: true
   headlessMode: true
-  timeout: 60
+  timeout: 10
 environment:
-  int:
-    environmentName: int
-    appUrl: https://www.filmweb.pl
-    title: Filmweb - filmy takie jak Ty!
-  test:
-    environmentName: test
-    appUrl: https://www.selenium.dev
-    title: Selenium
-dataTest:
-  username:
-  password:
+  appUrl: https://www.filmweb.pl
+  title: Filmweb - filmy takie jak Ty!
+testData:
+  username: Piter
+  password: Kowalski
+  searchInput: HUMMINGBIRD

@@ -1,4 +1,4 @@
-package helpers.configuration.factory;
+package helpers.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -19,14 +19,15 @@ public class DriverSetup {
             case "chrome":
                 ChromeOptions optionsChrome = new ChromeOptions();
                 WebDriverManager.chromedriver().setup();
-                optionsChrome.addArguments("start-maximized");
+                optionsChrome.addArguments("--start-maximized");
                 driver = new ChromeDriver(optionsChrome);
                 break;
             case "firefox":
                 FirefoxOptions optionsFirefox = new FirefoxOptions();
                 WebDriverManager.firefoxdriver().setup();
-                optionsFirefox.addArguments("start-maximized");
+                //optionsFirefox.addArguments("--start-maximized");
                 driver = new FirefoxDriver(optionsFirefox);
+                driver.manage().window().maximize();
                 break;
             default:
                 InternetExplorerOptions optionsDefault = new InternetExplorerOptions();

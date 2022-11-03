@@ -1,8 +1,8 @@
-package helpers.configuration.reader;
+package helpers.reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import helpers.configuration.yamlmodels.Config;
+import models.yamlmodels.Config;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
