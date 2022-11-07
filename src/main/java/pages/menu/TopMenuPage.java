@@ -1,13 +1,25 @@
 package pages.menu;
 
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.base.BasePage;
+import pages.product.ProductGridPage;
+import pages.search.SearchResultPage;
 
+import javax.swing.*;
 import java.util.List;
 
 public class TopMenuPage extends BasePage {
+
+    private JInternalFrame assertThat;
+
+    private void assertThat(boolean contains) {
+    }
+
+    ProductGridPage productGridPage = new ProductGridPage(driver);
+    SearchResultPage searchResultPage = new SearchResultPage(driver);
 
     public TopMenuPage(WebDriver driver) {
         super(driver);
@@ -20,6 +32,13 @@ public class TopMenuPage extends BasePage {
         logoBtn.click();
     }
 
+    @FindBy(xpath = "//a[@data-depth=0]")
+    private List<WebElement> mainCategories;
+
+    public List<WebElement> getMainCategories() {
+        return mainCategories;
+    }
+
     @FindBy(css = "#category-3 > a")
     private WebElement clothesCategoryBtn;
 
@@ -28,6 +47,10 @@ public class TopMenuPage extends BasePage {
 
     @FindBy(css = "#category-9 > a")
     private WebElement artCategoryBtn;
+
+    public void clickArtCategory() {
+        artCategoryBtn.click();
+    }
 
     @FindBy(css = ".ui-autocomplete-input")
     private WebElement searchInputField;

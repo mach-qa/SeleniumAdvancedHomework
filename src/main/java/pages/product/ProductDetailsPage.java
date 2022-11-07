@@ -14,7 +14,7 @@ public class ProductDetailsPage extends BasePage {
     @FindBy(css = ".add-to-cart")
     private WebElement addToCartBtn;
 
-    public void addProductToCart() {
+    public void enterQuantityToBuy() {
         sendKeysAndClear(addToCartBtn, System.getProperty("name"));
     }
 

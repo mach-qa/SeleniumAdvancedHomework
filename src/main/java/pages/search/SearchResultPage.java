@@ -25,4 +25,8 @@ public class SearchResultPage extends BasePage {
     public String readAmountOfFoundedProducts() {
         return quantityOfFoundProducts.getText().replaceAll("[^\\d]", "");
     }
+
+    public String readTextForFoundedProducts() {
+        return quantityOfFoundProducts.getText();
+    }
 }

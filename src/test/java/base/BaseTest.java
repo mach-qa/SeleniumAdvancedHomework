@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
+import providers.UrlProvider;
 
 public class BaseTest {
 
@@ -22,7 +23,7 @@ public class BaseTest {
     @BeforeEach
     void beforeEach() {
         driver = driverSetup.getDriver();
-        driver.get("http://146.59.32.4/index.php");
+        driver.get(UrlProvider.homePage);
     }
 
     @AfterEach

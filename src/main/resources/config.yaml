@@ -2,11 +2,13 @@ browser:
   browserName: chrome
   attachScreenshot: true
   headlessMode: true
-  timeout: 10
+  timeout: 30
 environment:
-  appUrl: https://www.filmweb.pl
-  title: Filmweb - filmy takie jak Ty!
+  appUrl: http://146.59.32.4/index.php
+  title: Home
 testData:
-  username: Piter
-  password: Kowalski
+  email: emilia.kowalska@wp.pl
+  password: K0W4lski
   searchInput: HUMMINGBIRD
+  currencySymbol: $
+  priceFilterTag: $9.00 - $11.00

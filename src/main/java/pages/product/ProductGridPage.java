@@ -16,6 +16,10 @@ public class ProductGridPage extends BasePage {
     @FindBy(css = ".product-title")
     private List<WebElement> allVisibleItems;
 
+    public List<WebElement> getListOfVisibleProducts() {
+        return allVisibleItems;
+    }
+
     //TODO rozbudować metode o randoma z ProductGridPage
     public String getRandomProductText() {
         return randomPositionFromList(allVisibleItems).getText();
@@ -25,8 +29,7 @@ public class ProductGridPage extends BasePage {
         return String.valueOf(sizeOfList(allVisibleItems));
     }
 
-    public String getSingleProductText() {
-        return allVisibleItems.get(0).getText();
+    public List<String> getVisibleProductsName() {
+        return stringListOfProducts(allVisibleItems);
     }
-
 }
