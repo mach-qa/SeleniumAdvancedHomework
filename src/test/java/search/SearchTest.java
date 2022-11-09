@@ -1,7 +1,6 @@
 package search;
 
 import base.Pages;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
@@ -13,23 +12,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchTest extends Pages {
 
-    SoftAssertions softly = new SoftAssertions();
-
     @Test
     @DisplayName("Standard Search Test")
     @Tag("Search")
     @RepeatedTest(10)
     public void shouldPerformSearch () {
 
-        String productInputText = productList.getRandomProductText();
+        String productInputText = productGridPage.getRandomProductText();
         topMenuPage.fillSearchInputField(productInputText);
         topMenuPage.performSearch();
         String quantity = searchResultsPage.readAmountOfFoundedProducts();
 
-        softly.assertThat(quantity).isEqualTo(productList.countProductsOnList());
-//      softly.assertThat(productList.getVisibleProductsText()).isEqualTo(productInputText);
+        softly.assertThat(quantity).isEqualTo(productGridPage.countProductsOnList());
 
-        List<String> allProductsName = productList.getVisibleProductsName();
+        List<String> allProductsName = productGridPage.getVisibleProductsName();
         softly.assertThat(allProductsName).contains(productInputText);
 
         softly.assertAll();

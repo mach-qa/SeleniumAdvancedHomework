@@ -1,6 +1,5 @@
 package pages.base;
 
-import helpers.locators.ByFinder;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -14,12 +13,11 @@ import java.util.Random;
 public class BasePage {
 
     public BasePage(WebDriver driver) {
-        PageFactory.initElements(new FieldContextDecorator(new ElementContextLocatorFactory(
-                driver, Duration.ofSeconds(20), Arrays.asList(StaleElementReferenceException.class,
-                ElementNotSelectableException.class ))), this);;
+        PageFactory.initElements(driver,this);
         this.driver = driver;
         action = new Actions(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(System.getProperty("timeout"))));
+        wait = new WebDriverWait
+                (driver, Duration.ofSeconds(Integer.parseInt(System.getProperty("timeout"))));
         random = new Random();
     }
 
@@ -27,7 +25,6 @@ public class BasePage {
     public Actions action;
     public WebDriverWait wait;
     public Random random;
-
 
     //SendKeys
     public void sendKeys(WebElement element, String textToSet) {
@@ -65,9 +62,16 @@ public class BasePage {
     }
 
     //GET Features
-    public double getPrice(WebElement element) {
+    public Double getPrice(WebElement element) {
         return Double.parseDouble(element.getText().replace(System.getProperty("currencySymbol"), ""));
     }
+
+    public Double getPriceFromFilter (WebElement element, int i) {
+        return Double.parseDouble(element.getText()
+                .replace(System.getProperty("currencySymbol"), "")
+                .split("-")[i]);
+    }
+
     public String getValue(WebElement element) {
         return element.getAttribute("value");
     }
@@ -76,32 +80,12 @@ public class BasePage {
     public void waitToBeVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-    public void waitToBeClickable(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
 
-    public void waitOfElementLocated (WebElement element) {
-        By byFromWebElement = new ByFinder().getByFromWebElement(element);
-        wait.until(ExpectedConditions.presenceOfElementLocated(byFromWebElement));
+    public void waitUntilDisappear(WebElement element) {
+        wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
     //Slider Methods
-    public void moveSlider(WebElement slider, WebElement button, int position) {
-        Actions move = new Actions(driver);
-
-        int width = slider.getSize().getWidth();
-        move.clickAndHold(button).moveByOffset(((width * (-100 + position)) / 100), 0).release().build().perform();
-    }
-
-    public void moveFilterSliderToRequestedValue (WebElement sliderButton, WebElement priceRange) {
-        for (int i = 0; i < 50; i++) {
-            waitOfElementLocated(sliderButton);
-            action.clickAndHold(sliderButton).sendKeys(Keys.ARROW_LEFT).perform();
-            if (priceRange.getText().equals(System.getProperty("priceFilterTag"))) {
-                break;
-            }
-        }
-    }
 
     //Action Methods
 }

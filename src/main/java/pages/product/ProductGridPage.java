@@ -16,11 +16,6 @@ public class ProductGridPage extends BasePage {
     @FindBy(css = ".product-title")
     private List<WebElement> allVisibleItems;
 
-    public List<WebElement> getListOfVisibleProducts() {
-        return allVisibleItems;
-    }
-
-    //TODO rozbudować metode o randoma z ProductGridPage
     public String getRandomProductText() {
         return randomPositionFromList(allVisibleItems).getText();
     }
@@ -32,4 +27,16 @@ public class ProductGridPage extends BasePage {
     public List<String> getVisibleProductsName() {
         return stringListOfProducts(allVisibleItems);
     }
+
+    @FindBy(css = "span.price")
+    private List<WebElement> allVisibleProductsPrices;
+
+    public Double getVisibleProductsPrices(int i) {
+        return getPrice(allVisibleProductsPrices.get(i));
+    }
+
+    public int getSizeOfProductPricesList() {
+        return sizeOfList(allVisibleProductsPrices);
+    }
+
 }

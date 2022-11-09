@@ -2,7 +2,7 @@ browser:
   browserName: chrome
   attachScreenshot: true
   headlessMode: true
-  timeout: 30
+  timeout: 10
 environment:
   appUrl: http://146.59.32.4/index.php
   title: Home
@@ -11,4 +11,7 @@ testData:
   password: K0W4lski
   searchInput: HUMMINGBIRD
   currencySymbol: $
-  priceFilterTag: $9.00 - $11.00
+  minimumFilterPrice: 9.00
+  maximumFilterPrice: 11.00
+
+

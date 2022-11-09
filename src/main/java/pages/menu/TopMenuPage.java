@@ -1,25 +1,14 @@
 package pages.menu;
 
-import dev.failsafe.internal.util.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.base.BasePage;
-import pages.product.ProductGridPage;
-import pages.search.SearchResultPage;
 
-import javax.swing.*;
 import java.util.List;
 
 public class TopMenuPage extends BasePage {
-
-    private JInternalFrame assertThat;
-
-    private void assertThat(boolean contains) {
-    }
-
-    ProductGridPage productGridPage = new ProductGridPage(driver);
-    SearchResultPage searchResultPage = new SearchResultPage(driver);
 
     public TopMenuPage(WebDriver driver) {
         super(driver);
@@ -35,8 +24,12 @@ public class TopMenuPage extends BasePage {
     @FindBy(xpath = "//a[@data-depth=0]")
     private List<WebElement> mainCategories;
 
-    public List<WebElement> getMainCategories() {
-        return mainCategories;
+    public WebElement getMainCategory(int i){
+        return driver.findElements(By.xpath("//a[@data-depth=0]")).get(i);
+    }
+
+    public int sizeOfMainCategoryList() {
+        return sizeOfList(mainCategories);
     }
 
     @FindBy(css = "#category-3 > a")
