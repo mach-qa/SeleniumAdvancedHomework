@@ -1,19 +1,21 @@
 package pages.base;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class BasePage {
 
     public BasePage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         this.driver = driver;
         action = new Actions(driver);
         wait = new WebDriverWait
@@ -30,6 +32,7 @@ public class BasePage {
     public void sendKeys(WebElement element, String textToSet) {
         element.sendKeys(textToSet);
     }
+
     public void sendKeysAndClear(WebElement element, String textToSet) {
         element.clear();
         sendKeys(element, textToSet);
@@ -39,10 +42,12 @@ public class BasePage {
     public int sizeOfList(List<WebElement> element) {
         return element.size();
     }
+
     public WebElement randomPositionFromList(List<WebElement> element) {
         int sizeOfList = sizeOfList(element);
         return element.get(random.nextInt(sizeOfList));
     }
+
     public boolean compareProductsInList(List<WebElement> element) {
         for (WebElement product : element) {
             if (product.getText().contains(System.getProperty("searchInput"))) {
@@ -52,10 +57,10 @@ public class BasePage {
         }
         return true;
     }
+
     public List<String> stringListOfProducts(List<WebElement> elementList) {
-        List<String> productList = null;
+        List<String> productList = new ArrayList<>();
         for (WebElement product : elementList) {
-            product.getText();
             productList.add(product.getText());
         }
         return productList;
@@ -66,7 +71,7 @@ public class BasePage {
         return Double.parseDouble(element.getText().replace(System.getProperty("currencySymbol"), ""));
     }
 
-    public Double getPriceFromFilter (WebElement element, int i) {
+    public Double getPriceFromFilter(WebElement element, int i) {
         return Double.parseDouble(element.getText()
                 .replace(System.getProperty("currencySymbol"), "")
                 .split("-")[i]);

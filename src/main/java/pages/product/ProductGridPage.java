@@ -13,7 +13,7 @@ public class ProductGridPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(css = ".product-title")
+    @FindBy(css = ".product-title a")
     private List<WebElement> allVisibleItems;
 
     public String getRandomProductText() {

@@ -8,7 +8,7 @@ import pages.product.FiltersPage;
 import pages.product.ProductGridPage;
 import pages.search.SearchResultPage;
 
-public class Pages  extends BaseTest{
+public class Pages extends BaseTest {
 
     public ProductGridPage productGridPage;
     public TopMenuPage topMenuPage;
@@ -19,7 +19,7 @@ public class Pages  extends BaseTest{
     public Actions action;
 
     @BeforeEach
-    public void setPagesComponent(){
+    public void setPagesComponent() {
         productGridPage = new ProductGridPage(driver);
         topMenuPage = new TopMenuPage(driver);
         searchResultsPage = new SearchResultPage(driver);

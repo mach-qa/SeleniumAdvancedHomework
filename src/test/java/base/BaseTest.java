@@ -1,11 +1,11 @@
 package base;
 
 import helpers.driver.DriverSetup;
-import providers.PropertiesFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
+import providers.PropertiesFactory;
 import providers.UrlProvider;
 
 public class BaseTest {
@@ -15,7 +15,7 @@ public class BaseTest {
     private static PropertiesFactory propertiesFactory;
 
     @BeforeAll
-    static void setupDriver(){
+    static void setupDriver() {
         propertiesFactory = PropertiesFactory.getInstance();
         driverSetup = new DriverSetup();
     }
