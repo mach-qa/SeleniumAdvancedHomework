@@ -17,6 +17,4 @@ public class ProductDetailsPage extends BasePage {
     public void enterQuantityToBuy() {
         sendKeysAndClear(addToCartBtn, System.getProperty("name"));
     }
-
-
 }
