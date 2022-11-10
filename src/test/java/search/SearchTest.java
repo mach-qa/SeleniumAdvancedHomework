@@ -25,21 +25,21 @@ public class SearchTest extends Pages {
 
         softly.assertThat(quantity).isEqualTo(productGridPage.countProductsOnList());
 
-        List<String> allProductsName = productGridPage.getVisibleProductsName();
-        softly.assertThat(allProductsName).contains(productInputText);
+//         List<String> allProductsName = productGridPage.getVisibleProductsName();
+//         softly.assertThat(allProductsName).contains(productInputText);
 
         softly.assertAll();
     }
 
-    @Test
-    @DisplayName("Dropdown Search")
-    @Tag("Search")
-    @RepeatedTest(10)
-    public void dropdownShouldContainEnteredText () {
-        topMenuPage.fillSearchInputField(System.getProperty("searchInput"));
-        topMenuPage.waitForDropdownList();
-        boolean result = topMenuPage.verifyProductsInDropdown();
+//     @Test
+//     @DisplayName("Dropdown Search")
+//     @Tag("Search")
+//     @RepeatedTest(10)
+//     public void dropdownShouldContainEnteredText () {
+//         topMenuPage.fillSearchInputField(System.getProperty("searchInput"));
+//         topMenuPage.waitForDropdownList();
+//         boolean result = topMenuPage.verifyProductsInDropdown();
 
-        assertThat(result).isEqualTo(true);
-    }
+//         assertThat(result).isEqualTo(true);
+//     }
 }
