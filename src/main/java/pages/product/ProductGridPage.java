@@ -28,6 +28,15 @@ public class ProductGridPage extends BasePage {
         return stringListOfProducts(allVisibleItems);
     }
 
+    public void clickOnRequestedTitle() {
+        for (WebElement item : allVisibleItems) {
+            if (item.getText().equals(System.getProperty("productForCart"))) {
+                item.click();
+                break;
+            }
+        }
+    }
+
     @FindBy(css = "span.price")
     private List<WebElement> allVisibleProductsPrices;
 

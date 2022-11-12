@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.interactions.Actions;
 import pages.menu.TopMenuPage;
 import pages.product.FiltersPage;
+import pages.product.ProductDetailsPage;
 import pages.product.ProductGridPage;
 import pages.search.SearchResultPage;
 
@@ -14,8 +15,8 @@ public class Pages extends BaseTest {
     public TopMenuPage topMenuPage;
     public SearchResultPage searchResultsPage;
     public FiltersPage filterPage;
+    public ProductDetailsPage productDetailsPage;
     public SoftAssertions softly;
-
     public Actions action;
 
     @BeforeEach
@@ -26,5 +27,6 @@ public class Pages extends BaseTest {
         filterPage = new FiltersPage(driver);
         softly = new SoftAssertions();
         action = new Actions(driver);
+        productDetailsPage = new ProductDetailsPage(driver);
     }
 }

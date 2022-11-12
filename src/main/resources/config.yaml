@@ -13,5 +13,7 @@ testData:
   currencySymbol: $
   minimumFilterPrice: 9.00
   maximumFilterPrice: 11.00
+  productForCart: THE ADVENTURE POSTER
+  quantityForProduct: 3
 
 

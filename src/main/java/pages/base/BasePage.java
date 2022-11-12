@@ -1,5 +1,6 @@
 package pages.base;
 
+import models.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -27,6 +28,8 @@ public class BasePage {
     public Actions action;
     public WebDriverWait wait;
     public Random random;
+
+
 
     //SendKeys
     public void sendKeys(WebElement element, String textToSet) {
@@ -90,7 +93,8 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    //Slider Methods
-
-    //Action Methods
+    //Create Object
+    public Product createNewProductObject (String productName, Double price, int quantity) {
+        return new Product(productName, price, quantity);
+    }
 }

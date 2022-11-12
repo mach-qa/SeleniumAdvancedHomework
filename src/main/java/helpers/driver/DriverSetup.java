@@ -33,6 +33,7 @@ public class DriverSetup {
                 InternetExplorerOptions optionsDefault = new InternetExplorerOptions();
                 WebDriverManager.iedriver().setup();
                 driver = new InternetExplorerDriver(optionsDefault);
+                driver.manage().window().maximize();
                 break;
         }
         return this.driver;
