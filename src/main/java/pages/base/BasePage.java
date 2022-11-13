@@ -57,13 +57,13 @@ public class BasePage {
     }
 
     public boolean compareProductsInList(List<WebElement> element) {
+        boolean loopResult = true;
         for (WebElement product : element) {
             if (product.getText().contains(System.getProperty("searchInput"))) {
                 System.out.println("Product on List: " + product.getText());
-                continue;
-            } else return false;
+            } else loopResult = false;
         }
-        return true;
+        return loopResult;
     }
 
     public List<String> stringListOfProducts(List<WebElement> elementList) {
