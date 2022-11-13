@@ -41,6 +41,11 @@ public class BasePage {
         sendKeys(element, textToSet);
     }
 
+    //Random
+    public int randomNumber(int range) {
+        return random.nextInt(range);
+    }
+
     //Features for List Type
     public int sizeOfList(List<WebElement> element) {
         return element.size();
@@ -48,7 +53,7 @@ public class BasePage {
 
     public WebElement randomPositionFromList(List<WebElement> element) {
         int sizeOfList = sizeOfList(element);
-        return element.get(random.nextInt(sizeOfList));
+        return element.get(randomNumber(sizeOfList));
     }
 
     public boolean compareProductsInList(List<WebElement> element) {

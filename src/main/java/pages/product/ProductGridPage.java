@@ -20,6 +20,10 @@ public class ProductGridPage extends BasePage {
         return randomPositionFromList(allVisibleItems).getText();
     }
 
+    public void clickRandomProduct() {
+        randomPositionFromList(allVisibleItems).click();
+    }
+
     public String countProductsOnList() {
         return String.valueOf(sizeOfList(allVisibleItems));
     }
@@ -47,5 +51,4 @@ public class ProductGridPage extends BasePage {
     public int getSizeOfProductPricesList() {
         return sizeOfList(allVisibleProductsPrices);
     }
-
 }

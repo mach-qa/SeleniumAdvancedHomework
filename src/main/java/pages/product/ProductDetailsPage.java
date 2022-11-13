@@ -19,6 +19,13 @@ public class ProductDetailsPage extends BasePage {
         addToCartBtn.click();
     }
 
+    @FindBy(css = ".modal-body .btn-primary")
+    private WebElement proceedToCheckoutBtn;
+
+    public void navigateToCart() {
+        proceedToCheckoutBtn.click();
+    }
+
     @FindBy(css = "h1[itemprop=\"name\"]")
     private WebElement productTitle;
 
@@ -37,6 +44,11 @@ public class ProductDetailsPage extends BasePage {
         sendKeysAndClear(quantityInput, System.getProperty("quantityForProduct"));
     }
 
+    public void setRandomQuantity() {
+        sendKeysAndClear(quantityInput, String.valueOf(randomNumber
+                (Integer.parseInt(System.getProperty("rangeOfQuantity")))));
+    }
+
     public void waitForQuantityInput() {
         waitToBeVisible(quantityInput);
     }
@@ -51,27 +63,4 @@ public class ProductDetailsPage extends BasePage {
     public Product saveProductDetails() {
         return createNewProductObject(getProductTitle(), getProductPrice(), getCurrentQuantity());
     }
-
-    @FindBy(css = ".modal-body .product-name")
-    private WebElement modalAddedProductTitle;
-
-    public String getAddedProductTitle() {
-        return modalAddedProductTitle.getText();
-    }
-
-    @FindBy(css = ".modal-body .product-price")
-    private WebElement modalAddedProductPrice;
-
-    public Double getAddedProductPrice() {
-        return getPrice(modalAddedProductPrice);
-    }
-
-    @FindBy(css = ".modal-body .product-quantity strong")
-    private WebElement modalAddedProductQuantity;
-
-    public int getAddedProductQuantity() {
-        return Integer.parseInt(modalAddedProductQuantity.getText());
-    }
-
-
 }

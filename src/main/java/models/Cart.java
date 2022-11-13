@@ -1,5 +1,6 @@
 package models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
     private List<Product> products = new ArrayList<>();
     private BigDecimal totalOrderCost = new BigDecimal("0.00");
@@ -24,11 +26,11 @@ public class Cart {
             }
         }
         if (loopResult) {products.add(product);}
-        increaseTotalOrderCost(product.getPrice());
+        increaseTotalOrderCost(product.getPrice(), product.getQuantity());
     }
 
-    private void increaseTotalOrderCost(Double productPrice) {
-        this.totalOrderCost = totalOrderCost.add(new BigDecimal(String.valueOf(productPrice)));
+    private void increaseTotalOrderCost(Double productPrice, int productQuantity) {
+        this.totalOrderCost = totalOrderCost.add(new BigDecimal(String.valueOf(productPrice * productQuantity)));
     }
 
     private void increaseQuantity (Product actualQuantity, Product newQuantity) {
