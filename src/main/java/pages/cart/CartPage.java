@@ -24,6 +24,13 @@ public class CartPage extends BasePage {
         return getPrice(allCartProductsPrices.get(i));
     }
 
+    @FindBy(css = ".product-price strong")
+    private List<WebElement> allCartProductsFullPrice;
+
+    public Double getProductsFullPrice(int i) {
+        return getPrice(allCartProductsFullPrice.get(i));
+    }
+
     @FindBy(css = ".cart-items a.label")
     private List<WebElement> allCartProductsTitle;
 
@@ -44,6 +51,8 @@ public class CartPage extends BasePage {
     private BigDecimal getSumOfProductsCart () {
         return BigDecimal.valueOf(getPrice(cartSubtotal));
     }
+
+
 
     public Cart toCart() {
         return new Cart(saveCartListOfProducts(), getSumOfProductsCart());
