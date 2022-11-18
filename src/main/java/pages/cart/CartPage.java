@@ -52,8 +52,6 @@ public class CartPage extends BasePage {
         return BigDecimal.valueOf(getPrice(cartSubtotal));
     }
 
-
-
     public Cart toCart() {
         return new Cart(saveCartListOfProducts(), getSumOfProductsCart());
     }
@@ -70,6 +68,13 @@ public class CartPage extends BasePage {
         }
 
         return cartProducts;
+    }
+
+    @FindBy(css = "a.btn-primary")
+    WebElement proceedToCheckoutBtn;
+
+    public void clickProceedToCheckoutBtn() {
+        proceedToCheckoutBtn.click();
     }
 
 }

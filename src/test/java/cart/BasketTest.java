@@ -3,9 +3,11 @@ package cart;
 import base.Pages;
 import models.Cart;
 import models.Product;
+import models.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import providers.UserFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,6 +69,29 @@ public class BasketTest extends Pages {
         Cart actualCart = cartPage.toCart();
 
         assertThat(actualCart).usingRecursiveComparison().isEqualTo(expectedCart);
+    }
+
+    @Test
+    @Tag("Basket")
+    @DisplayName("Checkout tests")
+    public void checkoutTest() {
+        User user = UserFactory.getAlreadyRegisteredUser();
+        System.out.println(user.getUserFirstName());
+        System.out.println(user.getUserEmail());
+        System.out.println(user.getUserPassword());
+
+        topMenuPage.clickSignInBtn();
+        signInPage.loginAsRegisteredUser();
+        topMenuPage.clickOnLogo();
+        productGridPage.clickAllProductsBtn();
+        productGridPage.clickOnRequestedTitle();
+        productDetailsPage.addProductToCart();
+        modalDialogPage.navigateToCart();
+        cartPage.clickProceedToCheckoutBtn();
+        checkoutPage.clickNewBillingAddressBtn();
+        checkoutPage.setNewBillingAddress();
+
+
     }
 
 }

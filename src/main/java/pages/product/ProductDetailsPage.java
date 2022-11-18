@@ -19,13 +19,6 @@ public class ProductDetailsPage extends BasePage {
         addToCartBtn.click();
     }
 
-    @FindBy(css = ".modal-body .btn-primary")
-    private WebElement proceedToCheckoutBtn;
-
-    public void navigateToCart() {
-        proceedToCheckoutBtn.click();
-    }
-
     @FindBy(css = "h1[itemprop=\"name\"]")
     private WebElement productTitle;
 

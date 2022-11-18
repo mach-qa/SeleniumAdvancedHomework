@@ -1,12 +1,14 @@
 package pages.base;
 
 import models.Product;
+import models.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import providers.UserFactory;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -28,8 +30,6 @@ public class BasePage {
     public Actions action;
     public WebDriverWait wait;
     public Random random;
-
-
 
     //SendKeys
     public void sendKeys(WebElement element, String textToSet) {
@@ -73,6 +73,8 @@ public class BasePage {
         }
         return productList;
     }
+
+
 
     //GET Features
     public Double getPrice(WebElement element) {
