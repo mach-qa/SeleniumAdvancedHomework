@@ -7,6 +7,7 @@ import models.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import pages.user.OrderHistoryPage;
 import providers.UserFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -90,7 +91,16 @@ public class BasketTest extends Pages {
         cartPage.clickProceedToCheckoutBtn();
         checkoutPage.clickNewBillingAddressBtn();
         checkoutPage.setNewBillingAddress();
+        checkoutPage.waitForConfirmDeliveryBtn();
+        checkoutPage.clickConfirmDeliveryBtn();
+        checkoutPage.chooseFirstPaymentOption();
+        checkoutPage.selectTermsAndConditionsCheckbox();
+        checkoutPage.clickPlaceOrderBtn();
 
+        String orderNumber = confirmationPage.getOrderNumber();
+        topMenuPage.navigateToAccountDetails();
+        yourAccountPage.navigateToOrderHistoryPage();
+        orderHistoryPage.clickDetailsOfRequestedOrder(orderNumber);
 
     }
 

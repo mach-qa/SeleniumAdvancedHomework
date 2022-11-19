@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import providers.UserFactory;
 
@@ -41,6 +42,15 @@ public class BasePage {
         sendKeys(element, textToSet);
     }
 
+    //Select Features
+    public Select selectForWebElement (WebElement element) {
+        return new Select(element);
+    }
+
+    public void selectRequestedValue (WebElement element, String value) {
+        selectForWebElement(element).selectByValue(value);
+    }
+
     //Random
     public int randomNumber(int range) {
         return random.nextInt(range);
@@ -73,8 +83,6 @@ public class BasePage {
         }
         return productList;
     }
-
-
 
     //GET Features
     public Double getPrice(WebElement element) {

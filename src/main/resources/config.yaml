@@ -9,6 +9,8 @@ environment:
 testData:
   email: emilia.kowalska@wp.pl
   password: K0W4lski
+  state: Arizona
+  country: United States
   searchInput: HUMMINGBIRD
   currencySymbol: $
   minimumFilterPrice: 9.00
