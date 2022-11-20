@@ -80,11 +80,26 @@ public class TopMenuPage extends BasePage {
     @FindBy(css = "a span.hidden-sm-down")
     private WebElement signInBtn;
 
+    public void clickSignInBtn () {
+        signInBtn.click();
+    }
+
     @FindBy(css = ".blockcart")
     private WebElement cartBtn;
 
     public void clickOnCartBtn() {
         cartBtn.click();
+    }
+
+    @FindBy(css = ".account")
+    private WebElement profileBtn;
+
+    public void navigateToAccountDetails () {
+        profileBtn.click();
+    }
+
+    public void waitForTopMenuProfile() {
+        waitToBeVisible(profileBtn);
     }
 
 }

@@ -1,12 +1,16 @@
 package pages.base;
 
 import models.Product;
+import models.User;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import providers.UserFactory;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -29,8 +33,6 @@ public class BasePage {
     public WebDriverWait wait;
     public Random random;
 
-
-
     //SendKeys
     public void sendKeys(WebElement element, String textToSet) {
         element.sendKeys(textToSet);
@@ -39,6 +41,15 @@ public class BasePage {
     public void sendKeysAndClear(WebElement element, String textToSet) {
         element.clear();
         sendKeys(element, textToSet);
+    }
+
+    //Select Features
+    public Select selectForWebElement(WebElement element) {
+        return new Select(element);
+    }
+
+    public void selectRequestedValue(WebElement element, String value) {
+        selectForWebElement(element).selectByVisibleText(value);
     }
 
     //Random
@@ -99,7 +110,17 @@ public class BasePage {
     }
 
     //Create Object
-    public Product createNewProductObject (String productName, Double price, int quantity) {
+    public Product createNewProductObject(String productName, Double price, int quantity) {
         return new Product(productName, price, quantity);
+    }
+
+    //Boolean Features
+    public boolean isElementPresent(WebElement element) {
+        try {
+            element.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

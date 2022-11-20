@@ -18,11 +18,19 @@ public class ModalDialogPage extends BasePage {
         proceedToCheckoutBtn.click();
     }
 
-    @FindBy(css = "")
+    public void waitForProceedBtn() {
+        waitToBeVisible(proceedToCheckoutBtn);
+    }
+
+    @FindBy(css = ".modal-body .btn-secondary")
     private WebElement continueShoppingBtn;
 
     public void continueShopping() {
         continueShoppingBtn.click();
+    }
+
+    public void waitForContinueShoppingBtn() {
+        waitToBeVisible(continueShoppingBtn);
     }
 
     @FindBy(css = ".modal-body .product-name")
@@ -39,10 +47,17 @@ public class ModalDialogPage extends BasePage {
         return getPrice(modalAddedProductPrice);
     }
 
-    @FindBy(css = ".modal-body .product-quantity strong")
-    private WebElement modalAddedProductQuantity;
+    @FindBy(css = ".modal-body .subtotal")
+    private WebElement modalAddedProductSubtotal;
 
-    public int getAddedProductQuantity() {
-        return Integer.parseInt(modalAddedProductQuantity.getText());
+    public Double getAddedProductSubtotalPrice() {
+        return getPrice(modalAddedProductSubtotal);
+    }
+
+    @FindBy(css = ".modal-body .cart-products-count")
+    private WebElement cartCounterLabel;
+
+    public String getCartCounterText() {
+        return cartCounterLabel.getText();
     }
 }

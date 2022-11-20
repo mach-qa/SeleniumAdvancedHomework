@@ -24,6 +24,13 @@ public class CartPage extends BasePage {
         return getPrice(allCartProductsPrices.get(i));
     }
 
+    @FindBy(css = ".product-price strong")
+    private List<WebElement> allCartProductsFullPrice;
+
+    public Double getProductsFullPrice(int i) {
+        return getPrice(allCartProductsFullPrice.get(i));
+    }
+
     @FindBy(css = ".cart-items a.label")
     private List<WebElement> allCartProductsTitle;
 
@@ -61,6 +68,13 @@ public class CartPage extends BasePage {
         }
 
         return cartProducts;
+    }
+
+    @FindBy(css = "a.btn-primary")
+    WebElement proceedToCheckoutBtn;
+
+    public void clickProceedToCheckoutBtn() {
+        proceedToCheckoutBtn.click();
     }
 
 }

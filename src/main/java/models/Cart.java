@@ -21,6 +21,7 @@ public class Cart {
         for (Product value : products) {
             if (value.getProductName().equals(product.getProductName())) {
                 increaseQuantity(value, product);
+                recalculateTotalPrice(value);
                 loopResult = false;
                 break;
             }
@@ -38,8 +39,8 @@ public class Cart {
         actualQuantity.setQuantity(quantity + newQuantity.getQuantity());
     }
 
-    public int sizeOfCart() {
-        return products.size();
+    public void recalculateTotalPrice(Product totalPrice) {
+        totalPrice.setTotalPrice(totalPrice.getPrice() * totalPrice.getQuantity());
     }
 
     public List<Product> getCartList (){
