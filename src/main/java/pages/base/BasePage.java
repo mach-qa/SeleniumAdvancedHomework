@@ -1,5 +1,6 @@
 package pages.base;
 
+import models.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -28,6 +29,8 @@ public class BasePage {
     public WebDriverWait wait;
     public Random random;
 
+
+
     //SendKeys
     public void sendKeys(WebElement element, String textToSet) {
         element.sendKeys(textToSet);
@@ -38,6 +41,11 @@ public class BasePage {
         sendKeys(element, textToSet);
     }
 
+    //Random
+    public int randomNumber(int range) {
+        return random.nextInt(range);
+    }
+
     //Features for List Type
     public int sizeOfList(List<WebElement> element) {
         return element.size();
@@ -45,7 +53,7 @@ public class BasePage {
 
     public WebElement randomPositionFromList(List<WebElement> element) {
         int sizeOfList = sizeOfList(element);
-        return element.get(random.nextInt(sizeOfList));
+        return element.get(randomNumber(sizeOfList));
     }
 
     public boolean compareProductsInList(List<WebElement> element) {
@@ -90,7 +98,8 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    //Slider Methods
-
-    //Action Methods
+    //Create Object
+    public Product createNewProductObject (String productName, Double price, int quantity) {
+        return new Product(productName, price, quantity);
+    }
 }

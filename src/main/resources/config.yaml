@@ -13,5 +13,9 @@ testData:
   currencySymbol: $
   minimumFilterPrice: 9.00
   maximumFilterPrice: 11.00
+  productForCart: THE BEST IS YET POSTER
+  quantityForProduct: 3
+  rangeOfQuantity: 5
+  numberOfProductsAddedToCart: 5
 
 

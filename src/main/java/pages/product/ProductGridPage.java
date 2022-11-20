@@ -20,12 +20,25 @@ public class ProductGridPage extends BasePage {
         return randomPositionFromList(allVisibleItems).getText();
     }
 
+    public void clickRandomProduct() {
+        randomPositionFromList(allVisibleItems).click();
+    }
+
     public String countProductsOnList() {
         return String.valueOf(sizeOfList(allVisibleItems));
     }
 
     public List<String> getVisibleProductsName() {
         return stringListOfProducts(allVisibleItems);
+    }
+
+    public void clickOnRequestedTitle() {
+        for (WebElement item : allVisibleItems) {
+            if (item.getText().equals(System.getProperty("productForCart"))) {
+                item.click();
+                break;
+            }
+        }
     }
 
     @FindBy(css = "span.price")
@@ -38,5 +51,4 @@ public class ProductGridPage extends BasePage {
     public int getSizeOfProductPricesList() {
         return sizeOfList(allVisibleProductsPrices);
     }
-
 }

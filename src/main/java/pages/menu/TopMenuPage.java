@@ -83,4 +83,8 @@ public class TopMenuPage extends BasePage {
     @FindBy(css = ".blockcart")
     private WebElement cartBtn;
 
+    public void clickOnCartBtn() {
+        cartBtn.click();
+    }
+
 }
