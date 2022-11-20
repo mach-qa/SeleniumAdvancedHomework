@@ -91,11 +91,15 @@ public class TopMenuPage extends BasePage {
         cartBtn.click();
     }
 
-    @FindBy(css = ".account .hidden-sm-down")
+    @FindBy(css = ".account")
     private WebElement profileBtn;
 
     public void navigateToAccountDetails () {
         profileBtn.click();
+    }
+
+    public void waitForTopMenuProfile() {
+        waitToBeVisible(profileBtn);
     }
 
 }

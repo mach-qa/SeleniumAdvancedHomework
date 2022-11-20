@@ -18,6 +18,10 @@ public class ModalDialogPage extends BasePage {
         proceedToCheckoutBtn.click();
     }
 
+    public void waitForProceedBtn() {
+        waitToBeVisible(proceedToCheckoutBtn);
+    }
+
     @FindBy(css = ".modal-body .btn-secondary")
     private WebElement continueShoppingBtn;
 

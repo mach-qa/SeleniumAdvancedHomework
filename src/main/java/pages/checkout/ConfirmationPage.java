@@ -13,7 +13,7 @@ public class ConfirmationPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(css = "#payment-confirmation [type=submit]")
+    @FindBy(css = "#order-details li")
     private List<WebElement> orderDetails;
 
     public String getOrderNumber() {
@@ -24,5 +24,12 @@ public class ConfirmationPage extends BasePage {
             }
         }
         return orderNumber;
+    }
+
+    @FindBy(css = "#content-hook_order_confirmation .card-title")
+    private WebElement confirmationText;
+
+    public String getConfirmationText() {
+        return confirmationText.getText().replace("\uE876","");
     }
 }

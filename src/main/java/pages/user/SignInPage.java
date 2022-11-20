@@ -26,7 +26,7 @@ public class SignInPage extends BasePage {
 
     public void loginAsRegisteredUser(){
         sendKeys(emailInputField, registeredUser.getUserEmail());
-        sendKeys(emailInputField, registeredUser.getUserPassword());
+        sendKeys(passwordInputField, registeredUser.getUserPassword());
         signInBtn.click();
     }
 

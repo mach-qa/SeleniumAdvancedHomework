@@ -18,6 +18,10 @@ import pages.user.OrderHistoryPage;
 import pages.user.SignInPage;
 import pages.user.YourAccountPage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Pages extends BaseTest {
 
     public ProductGridPage productGridPage;
@@ -35,6 +39,8 @@ public class Pages extends BaseTest {
     public OrderDetailsPage orderDetailsPage;
     public SoftAssertions softly;
     public Actions action;
+    public Date date;
+    public DateFormat dateFormat;
 
     @BeforeEach
     public void setPagesComponent() {
@@ -53,5 +59,7 @@ public class Pages extends BaseTest {
         signInPage = new SignInPage(driver);
         softly = new SoftAssertions();
         action = new Actions(driver);
+        date = new Date();
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     }
 }

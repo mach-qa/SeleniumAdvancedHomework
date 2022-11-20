@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class SearchTest extends Pages {
 
     @Test
@@ -29,17 +27,5 @@ public class SearchTest extends Pages {
         softly.assertThat(allProductsName).contains(productInputText);
 
         softly.assertAll();
-    }
-
-    @Test
-    @DisplayName("Dropdown Search")
-    @Tag("Search")
-    @RepeatedTest(10)
-    public void dropdownShouldContainEnteredText() {
-        topMenuPage.fillSearchInputField(System.getProperty("searchInput"));
-        topMenuPage.waitForDropdownList();
-        boolean result = topMenuPage.verifyProductsInDropdown();
-
-        assertThat(result).isEqualTo(true);
     }
 }

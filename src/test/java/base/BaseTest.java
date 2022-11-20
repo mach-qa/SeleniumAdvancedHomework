@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import providers.PropertiesFactory;
 import providers.UrlProvider;
 
+import java.time.Duration;
+
 public class BaseTest {
 
     public WebDriver driver;

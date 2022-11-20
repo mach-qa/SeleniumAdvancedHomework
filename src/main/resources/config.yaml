@@ -12,6 +12,9 @@ testData:
   state: Arizona
   country: United States
   searchInput: HUMMINGBIRD
+  paymentOption: Pay by Check
+  statusLabel: Awaiting check payment
+  confirmationMessage: YOUR ORDER IS CONFIRMED
   currencySymbol: $
   minimumFilterPrice: 9.00
   maximumFilterPrice: 11.00
