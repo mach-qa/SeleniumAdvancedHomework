@@ -22,7 +22,7 @@ public class FiltersPage extends BasePage {
     @FindBy(css = "a.ui-slider-handle:nth-child(2)")
     private WebElement leftSliderHandle;
 
-    public void moveLeftSliderHandle() throws InterruptedException {
+    public void moveLeftSliderHandle() {
         Double requestedPrice = Double.valueOf(System.getProperty("minimumFilterPrice"));
 
         move.clickAndHold(leftSliderHandle).perform();
@@ -31,13 +31,12 @@ public class FiltersPage extends BasePage {
         }
         move.release().perform();
         waitForSpinner();
-        Thread.sleep(300);
     }
 
     @FindBy(css = "a.ui-slider-handle:nth-child(3)")
     private WebElement rightSliderHandle;
 
-    public void moveRightSliderHandle() throws InterruptedException {
+    public void moveRightSliderHandle() {
         Double requestedPrice = Double.valueOf(System.getProperty("maximumFilterPrice"));
         move.clickAndHold(rightSliderHandle);
         while (!Objects.equals(getMaximumPrice(), requestedPrice)) {
@@ -45,7 +44,6 @@ public class FiltersPage extends BasePage {
         }
         move.release().perform();
         waitForSpinner();
-        Thread.sleep(300);
     }
 
     @FindBy(css = "[data-slider-label] p")
