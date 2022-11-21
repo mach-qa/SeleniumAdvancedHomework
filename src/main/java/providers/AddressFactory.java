@@ -7,13 +7,13 @@ import java.util.Locale;
 
 public class AddressFactory {
 
-    static Faker usfaker = new Faker(new Locale("en-US"));
+    static Faker usFaker = new Faker(new Locale("en-US"));
 
     public static Address setNewAddressForRegisteredUser() {
         return Address.builder()
-                .address(usfaker.address().streetAddress())
-                .city(usfaker.address().city())
-                .zipPostalCode(usfaker.numerify("#####"))
+                .address(usFaker.address().streetAddress())
+                .city(usFaker.address().city())
+                .zipPostalCode(usFaker.numerify("#####"))
                 .build();
     }
 }

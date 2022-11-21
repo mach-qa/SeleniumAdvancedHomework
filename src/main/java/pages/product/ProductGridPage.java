@@ -32,7 +32,6 @@ public class ProductGridPage extends BasePage {
         return stringListOfProducts(allVisibleItems);
     }
 
-    //TODO rozpisac jakoś gdy jest więcej stron i po tym ma probowac poszukać na nastepnej stronie
     public void clickOnRequestedTitle() {
         for (WebElement item : allVisibleItems) {
             if (item.getText().equals(System.getProperty("productForCart"))) {
