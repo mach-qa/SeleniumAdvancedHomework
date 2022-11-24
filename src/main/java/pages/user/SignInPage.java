@@ -9,8 +9,6 @@ import providers.UserFactory;
 
 public class SignInPage extends BasePage {
 
-    User registeredUser = UserFactory.getAlreadyRegisteredUser();
-
     public SignInPage(WebDriver driver) {
         super(driver);
     }
@@ -24,10 +22,11 @@ public class SignInPage extends BasePage {
     @FindBy(css = "#submit-login")
     private WebElement signInBtn;
 
-    public void loginAsRegisteredUser(){
+    public SignInPage loginAsRegisteredUser(User registeredUser){
         sendKeys(emailInputField, registeredUser.getUserEmail());
         sendKeys(passwordInputField, registeredUser.getUserPassword());
         signInBtn.click();
+        return this;
     }
 
 }

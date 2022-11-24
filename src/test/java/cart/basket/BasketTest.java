@@ -16,23 +16,45 @@ public class BasketTest extends Pages {
     @DisplayName("Verify modal dialog after add Product")
     public void productShouldBeAdded() {
 
-        Cart expectedCart = new Cart();
+//        Cart expectedCart = new Cart();
+//
+//        topMenuPage.goToArtCategory();
+//
+//        productGridPage.clickOnRequestedProduct();
+//        productDetailsPage.setNewQuantity();
+//
+//        expectedCart.addProduct(productDetailsPage.saveProductDetails());
+//
+//        productDetailsPage.addProductToCart();
+//
+//        //TODO Pomyslec czy nie można zrobić tego jak ponizej z wykorzystaniem usingRecursiveComparison()
+//
+//        for (Product product : expectedCart.getAmountOfProductsInCart()) {
+//            softly.assertThat(product.getProductName()).isEqualTo(modalDialogPage.getAddedProductTitle());
+//            softly.assertThat(product.getPrice()).isEqualTo(modalDialogPage.getAddedProductPrice());
+//            softly.assertThat(product.getTotalPrice()).isEqualTo(modalDialogPage.getAddedProductSubtotalPrice());
+//            softly.assertThat(product.getQuantity()).hasToString(modalDialogPage.getCartCounterText());
+//        }
+//        softly.assertAll();
 
-        topMenuPage.clickArtCategory();
-        productGridPage.clickOnRequestedTitle();
+        topMenuPage.goToArtCategory();
 
-        productDetailsPage.waitForQuantityInput();
+        productGridPage.clickOnRequestedProduct();
         productDetailsPage.setNewQuantity();
-        expectedCart.addProduct(productDetailsPage.saveProductDetails());
+
+        Product product = productDetailsPage.saveProductDetails();
+
         productDetailsPage.addProductToCart();
 
-        for (Product product : expectedCart.getCartList()) {
-            softly.assertThat(product.getProductName()).isEqualTo(modalDialogPage.getAddedProductTitle());
-            softly.assertThat(product.getPrice()).isEqualTo(modalDialogPage.getAddedProductPrice());
-            softly.assertThat(product.getTotalPrice()).isEqualTo(modalDialogPage.getAddedProductSubtotalPrice());
-            softly.assertThat(product.getQuantity()).hasToString(modalDialogPage.getCartCounterText());
-        }
+        Product addedProduct = popUpCartPage.getProduct();
+
+        assertThat(product).usingRecursiveComparison().isEqualTo(addedProduct);
+
+        softly.assertThat(product.getTotalPrice()).isEqualTo(popUpCartPage.getProductSubtotalPrice());
+        softly.assertThat(product.getQuantity()).hasToString(popUpCartPage.getCartCounterText());
+
         softly.assertAll();
+
     }
 
     @Test
@@ -43,16 +65,20 @@ public class BasketTest extends Pages {
         Cart expectedCart = new Cart();
 
         for (int i = 0; i < Integer.parseInt(System.getProperty("numberOfProductsAddedToCart")); i++) {
-            productGridPage.clickRandomProduct();
-            productDetailsPage.waitForQuantityInput();
+            productGridPage.clickOnRandomProduct();
+
             productDetailsPage.setRandomQuantity();
+
             expectedCart.addProduct(productDetailsPage.saveProductDetails());
+
             productDetailsPage.addProductToCart();
-            modalDialogPage.waitForContinueShoppingBtn();
-            modalDialogPage.continueShopping();
-            topMenuPage.clickOnLogo();
+            popUpCartPage.continueShopping();
+
+            topMenuPage.navigateToHomePage();
         }
-        topMenuPage.clickOnCartBtn();
+
+        topMenuPage.goToCartPage();
+
         Cart actualCart = cartPage.toCart();
 
         assertThat(actualCart).usingRecursiveComparison().isEqualTo(expectedCart);

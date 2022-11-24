@@ -17,11 +17,11 @@ public class SearchTest extends Pages {
     public void shouldPerformSearch() {
 
         String productInputText = productGridPage.getRandomProductText();
-        topMenuPage.fillSearchInputField(productInputText);
-        topMenuPage.performSearch();
+        topMenuPage.fillSearchInputField(productInputText)
+                .performSearch();
 
-        String quantity = searchResultsPage.readAmountOfFoundedProducts();
-        softly.assertThat(quantity).isEqualTo(productGridPage.countProductsOnList());
+        String quantity = searchResultsPage.saveAmountOfFoundProducts();
+        softly.assertThat(quantity).isEqualTo(productGridPage.getAmountOfProducts());
 
         List<String> allProductsName = productGridPage.getVisibleProductsName();
         softly.assertThat(allProductsName).contains(productInputText);

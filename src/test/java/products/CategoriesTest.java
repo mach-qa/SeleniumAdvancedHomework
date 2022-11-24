@@ -14,14 +14,16 @@ public class CategoriesTest extends Pages {
     @RepeatedTest(10)
     public void verifyDetailsInCategories() {
 
-        for (int i = 0; i< topMenuPage.sizeOfMainCategoryList(); i++) {
-            topMenuPage.getMainCategory(i).click();
-            topMenuPage.waitToBeVisible(topMenuPage.getMainCategory(i));
-            String categoryName = topMenuPage.getMainCategory(i).getText();
+        for (int i = 0; i< topMenuPage.countAvailableMainCategories(); i++) {
+            //TODO poprawić aby nie było WebElementu
+            topMenuPage.getRequiredMainCategory(i).click();
+            topMenuPage.waitToBeVisible(topMenuPage.getRequiredMainCategory(i));
+
+            String categoryName = topMenuPage.getRequiredMainCategory(i).getText();
 
             softly.assertThat(driver.getTitle().toUpperCase()).isEqualTo(categoryName);
 
-            String countedProducts = productGridPage.countProductsOnList();
+            String countedProducts = productGridPage.getAmountOfProducts();
             String labelCounterText = searchResultsPage.readTextForFoundedProducts();
 
             softly.assertThat(labelCounterText).contains(countedProducts);

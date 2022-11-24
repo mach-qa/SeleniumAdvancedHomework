@@ -20,33 +20,36 @@ public class CartPage extends BasePage {
     @FindBy(css = "span.price")
     private List<WebElement> allCartProductsPrices;
 
+    @FindBy(css = ".product-price strong")
+    private List<WebElement> allCartProductsFullPrice;
+
+    @FindBy(css = ".cart-items a.label")
+    private List<WebElement> allCartProductsTitle;
+
+    @FindBy(css = "input.form-control")
+    private List<WebElement> allCartProductsQuantity;
+
+    @FindBy(css = "#cart-subtotal-products span.value")
+    private WebElement cartSubtotal;
+
+    @FindBy(css = "a.btn-primary")
+    WebElement proceedToCheckoutBtn;
+
     public Double getVisibleProductsPrices(int i) {
         return getPrice(allCartProductsPrices.get(i));
     }
-
-    @FindBy(css = ".product-price strong")
-    private List<WebElement> allCartProductsFullPrice;
 
     public Double getProductsFullPrice(int i) {
         return getPrice(allCartProductsFullPrice.get(i));
     }
 
-    @FindBy(css = ".cart-items a.label")
-    private List<WebElement> allCartProductsTitle;
-
     private String getVisibleProductsTitle(int i) {
         return allCartProductsTitle.get(i).getText();
     }
 
-    @FindBy(css = "input.form-control")
-    private List<WebElement> allCartProductsQuantity;
-
     private int getVisibleProductsQuantity(int i) {
         return Integer.parseInt(getValue(allCartProductsQuantity.get(i)));
     }
-
-    @FindBy(css = "#cart-subtotal-products span.value")
-    private WebElement cartSubtotal;
 
     private BigDecimal getSumOfProductsCart () {
         return BigDecimal.valueOf(getPrice(cartSubtotal));
@@ -56,25 +59,22 @@ public class CartPage extends BasePage {
         return new Cart(saveCartListOfProducts(), getSumOfProductsCart());
     }
 
+    //TODO Sprawdzić Ostatnie zajęcia z Q&A aby sprawdzić jak nie wykorzystać tylu list w obiektach
     private List<Product> saveCartListOfProducts() {
         List<Product> cartProducts = new ArrayList<>();
 
-        for (int i = 0; i < sizeOfList(allCartProductsTitle); i++) {
+        for (int i = 0; i < allCartProductsTitle.size(); i++) {
             Product cartProduct = createNewProductObject(
                     getVisibleProductsTitle(i),
                     getVisibleProductsPrices(i),
                     getVisibleProductsQuantity(i));
             cartProducts.add(cartProduct);
         }
-
         return cartProducts;
     }
 
-    @FindBy(css = "a.btn-primary")
-    WebElement proceedToCheckoutBtn;
-
-    public void clickProceedToCheckoutBtn() {
+    public CartPage startCheckoutProcess() {
         proceedToCheckoutBtn.click();
+        return this;
     }
-
 }

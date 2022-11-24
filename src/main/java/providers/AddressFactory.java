@@ -9,7 +9,7 @@ public class AddressFactory {
 
     static Faker usFaker = new Faker(new Locale("en-US"));
 
-    public static Address setNewAddressForRegisteredUser() {
+    public static Address getRandomUSAddress() {
         return Address.builder()
                 .address(usFaker.address().streetAddress())
                 .city(usFaker.address().city())

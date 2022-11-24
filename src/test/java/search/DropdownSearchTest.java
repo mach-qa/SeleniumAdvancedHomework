@@ -13,12 +13,13 @@ public class DropdownSearchTest extends Pages {
     @Test
     @DisplayName("Dropdown Search")
     @Tag("Search")
-    @RepeatedTest(10)
+    //@RepeatedTest(10)
     public void dropdownShouldContainEnteredText() {
-        topMenuPage.fillSearchInputField(System.getProperty("searchInput"));
-        topMenuPage.waitForDropdownList();
-        boolean result = topMenuPage.verifyProductsInDropdown();
 
-        assertThat(result).isEqualTo(true);
+        //TODO poprawić assercje
+
+        topMenuPage.fillSearchInputField(System.getProperty("searchInput"));
+
+        assertThat(topMenuPage.getSearchResults()).contains(System.getProperty("searchInput"));
     }
 }

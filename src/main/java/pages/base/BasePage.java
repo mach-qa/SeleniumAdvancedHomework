@@ -1,7 +1,6 @@
 package pages.base;
 
 import models.Product;
-import models.User;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import providers.UserFactory;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -33,7 +31,6 @@ public class BasePage {
     public WebDriverWait wait;
     public Random random;
 
-    //SendKeys
     public void sendKeys(WebElement element, String textToSet) {
         element.sendKeys(textToSet);
     }
@@ -43,7 +40,6 @@ public class BasePage {
         sendKeys(element, textToSet);
     }
 
-    //Select Features
     public Select selectForWebElement(WebElement element) {
         return new Select(element);
     }
@@ -52,40 +48,22 @@ public class BasePage {
         selectForWebElement(element).selectByVisibleText(value);
     }
 
-    //Random
     public int randomNumber(int range) {
         return random.nextInt(range);
     }
 
-    //Features for List Type
-    public int sizeOfList(List<WebElement> element) {
-        return element.size();
-    }
-
     public WebElement randomPositionFromList(List<WebElement> element) {
-        int sizeOfList = sizeOfList(element);
-        return element.get(randomNumber(sizeOfList));
+        return element.get(randomNumber(element.size()));
     }
 
-    public boolean compareProductsInList(List<WebElement> element) {
-        boolean loopResult = true;
-        for (WebElement product : element) {
-            if (product.getText().contains(System.getProperty("searchInput"))) {
-                System.out.println("Product on List: " + product.getText());
-            } else loopResult = false;
+    public List<String> getTextFromElements(List<WebElement> elementList) {
+        List<String> newList = new ArrayList<>();
+        for (WebElement singleElement : elementList) {
+            newList.add(singleElement.getText());
         }
-        return loopResult;
+        return newList;
     }
 
-    public List<String> stringListOfProducts(List<WebElement> elementList) {
-        List<String> productList = new ArrayList<>();
-        for (WebElement product : elementList) {
-            productList.add(product.getText());
-        }
-        return productList;
-    }
-
-    //GET Features
     public Double getPrice(WebElement element) {
         return Double.parseDouble(element.getText().replace(System.getProperty("currencySymbol"), ""));
     }
@@ -100,7 +78,6 @@ public class BasePage {
         return element.getAttribute("value");
     }
 
-    //Wait Methods
     public void waitToBeVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
@@ -109,12 +86,10 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    //Create Object
     public Product createNewProductObject(String productName, Double price, int quantity) {
         return new Product(productName, price, quantity);
     }
 
-    //Boolean Features
     public boolean isElementPresent(WebElement element) {
         try {
             element.isDisplayed();

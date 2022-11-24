@@ -22,7 +22,21 @@ public class FiltersPage extends BasePage {
     @FindBy(css = "a.ui-slider-handle:nth-child(2)")
     private WebElement leftSliderHandle;
 
-    public void moveLeftSliderHandle() {
+    @FindBy(css = "a.ui-slider-handle:nth-child(3)")
+    private WebElement rightSliderHandle;
+
+    @FindBy(css = "[data-slider-label] p")
+    private WebElement priceRangeText;
+
+    @FindBy(css = ".ui-slider-horizontal")
+    private WebElement priceFilterSlider;
+
+    @FindBy(css = "spinner")
+    private WebElement spinner;
+
+    //TODO poprawawić Slidera tak aby był jeden uniwersalny private
+
+    public FiltersPage moveLeftSliderHandle() {
         Double requestedPrice = Double.valueOf(System.getProperty("minimumFilterPrice"));
 
         move.clickAndHold(leftSliderHandle).perform();
@@ -31,12 +45,10 @@ public class FiltersPage extends BasePage {
         }
         move.release().perform();
         waitForSpinner();
+        return this;
     }
 
-    @FindBy(css = "a.ui-slider-handle:nth-child(3)")
-    private WebElement rightSliderHandle;
-
-    public void moveRightSliderHandle() {
+    public FiltersPage moveRightSliderHandle() {
         Double requestedPrice = Double.valueOf(System.getProperty("maximumFilterPrice"));
         move.clickAndHold(rightSliderHandle);
         while (!Objects.equals(getMaximumPrice(), requestedPrice)) {
@@ -44,10 +56,8 @@ public class FiltersPage extends BasePage {
         }
         move.release().perform();
         waitForSpinner();
+        return this;
     }
-
-    @FindBy(css = "[data-slider-label] p")
-    private WebElement priceRangeText;
 
     public Double getMinimumPrice() {
         return getPriceFromFilter(priceRangeText, 0);
@@ -57,17 +67,12 @@ public class FiltersPage extends BasePage {
         return getPriceFromFilter(priceRangeText, 1);
     }
 
-    @FindBy(css = ".ui-slider-horizontal")
-    private WebElement priceFilterSlider;
-
     public int getSliderWidthSize() {
         return priceFilterSlider.getSize().getWidth();
     }
 
-    @FindBy(css = "spinner")
-    private WebElement spinner;
-
-    public void waitForSpinner() {
+    public FiltersPage waitForSpinner() {
         waitUntilDisappear(spinner);
+        return this;
     }
 }

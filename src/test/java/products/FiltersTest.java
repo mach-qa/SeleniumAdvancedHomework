@@ -12,12 +12,13 @@ public class FiltersTest extends Pages {
      @DisplayName("Filters")
      @Tag("Products")
      @RepeatedTest(10)
-     public void filterSliderShouldBeDraggable() throws InterruptedException {
-         topMenuPage.clickArtCategory();
-         filterPage.moveLeftSliderHandle();
-         filterPage.moveRightSliderHandle();
+     public void filterSliderShouldBeDraggable() {
+         topMenuPage.goToArtCategory();
 
-         for (int i = 0; i < productGridPage.getSizeOfProductPricesList() ; i++) {
+         filterPage.moveLeftSliderHandle()
+                 .moveRightSliderHandle();
+
+         for (int i = 0; i < productGridPage.getAmountOfProductPricesFromList() ; i++) {
              softly.assertThat(productGridPage.getVisibleProductsPrices(i))
                      .isGreaterThanOrEqualTo(filterPage.getMinimumPrice());
              softly.assertThat(productGridPage.getVisibleProductsPrices(i))
