@@ -1,49 +1,60 @@
 package cart.checkout;
 
 import base.Pages;
+import models.Address;
+import models.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import providers.AddressFactory;
+import providers.UserFactory;
 
-public class checkoutTest extends Pages {
+public class CheckoutTest extends Pages {
 
     @Test
     @Tag("Basket")
     @DisplayName("Checkout tests")
     public void orderDetailsShouldBeAsOrdered() {
 
-        topMenuPage.clickSignInBtn();
-        signInPage.loginAsRegisteredUser();
-        topMenuPage.clickOnLogo();
-        productGridPage.clickAllProductsBtn();
-        productGridPage.clickOnRequestedTitle();
+        Address newAddress = AddressFactory.getRandomUSAddress();
+        User registeredUser = UserFactory.getAlreadyRegisteredUser();
+
+        topMenuPage.navigateToSignInPage();
+        signInPage.loginAsRegisteredUser(registeredUser);
+        topMenuPage.navigateToHomePage();
+
+        productGridPage.showAllAvailableProducts()
+                .clickOnRequestedProduct();
+
         productDetailsPage.addProductToCart();
-        modalDialogPage.waitForProceedBtn();
-        modalDialogPage.navigateToCart();
-        cartPage.clickProceedToCheckoutBtn();
-        checkoutPage.clickNewBillingAddressBtn();
-        checkoutPage.waitForLoadingInputFields();
-        checkoutPage.setNewBillingAddress();
-        checkoutPage.clickAddressesTab();
+
+        popUpCartPage.navigateToCart();
+
+        cartPage.startCheckoutProcess();
+
+        checkoutPage.startAddNewBillingAddressProcess()
+                .fillMandatoryFieldsWithRandomDataAndConfirm(newAddress)
+                .expandAddressesTab();
 
         String expectedDeliveryAddress = checkoutPage.getDeliveryAddress();
         String expectedInvoiceAddress = checkoutPage.getInvoiceAddress();
 
-        checkoutPage.confirmAddresses();
-        checkoutPage.waitForConfirmDeliveryBtn();
-        checkoutPage.clickConfirmDeliveryBtn();
-        checkoutPage.chooseFirstPaymentOption();
-        checkoutPage.selectTermsAndConditionsCheckbox();
+        checkoutPage.confirmAddresses()
+                .confirmShippingMethod()
+                .chooseFirstPaymentOption()
+                .selectTermsAndConditionsCheckbox();
 
         Double expectedTotalPrice = checkoutPage.getTotalPrice();
-        checkoutPage.clickPlaceOrderBtn();
+
+        checkoutPage.PlaceAnOrder();
         softly.assertThat(confirmationPage.getConfirmationText()).isEqualTo(System.getProperty("confirmationMessage"));
 
         String orderNumber = confirmationPage.getOrderNumber();
-        topMenuPage.waitForTopMenuProfile();
         topMenuPage.navigateToAccountDetails();
+
         yourAccountPage.navigateToOrderHistoryPage();
-        orderHistoryPage.clickDetailsOfRequestedOrder(orderNumber);
+
+        orderHistoryPage.goToDetailsOfRequestedOrder(orderNumber);
 
         softly.assertThat(orderDetailsPage.getOrderDeliveryAddress()).isEqualTo(expectedDeliveryAddress);
         softly.assertThat(orderDetailsPage.getOrderInvoiceAddress()).isEqualTo(expectedInvoiceAddress);

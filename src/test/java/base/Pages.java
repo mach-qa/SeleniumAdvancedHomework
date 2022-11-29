@@ -2,14 +2,13 @@ package base;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.openqa.selenium.interactions.Actions;
 import pages.cart.CartPage;
 import pages.checkout.CheckoutPage;
 import pages.checkout.ConfirmationPage;
 import pages.menu.TopMenuPage;
 import pages.product.FiltersPage;
-import pages.product.ModalDialogPage;
+import pages.product.PopUpCartPage;
 import pages.product.ProductDetailsPage;
 import pages.product.ProductGridPage;
 import pages.search.SearchResultPage;
@@ -29,7 +28,7 @@ public class Pages extends BaseTest {
     public SearchResultPage searchResultsPage;
     public FiltersPage filterPage;
     public ProductDetailsPage productDetailsPage;
-    public ModalDialogPage modalDialogPage;
+    public PopUpCartPage popUpCartPage;
     public CartPage cartPage;
     public SignInPage signInPage;
     public CheckoutPage checkoutPage;
@@ -49,7 +48,7 @@ public class Pages extends BaseTest {
         searchResultsPage = new SearchResultPage(driver);
         filterPage = new FiltersPage(driver);
         productDetailsPage = new ProductDetailsPage(driver);
-        modalDialogPage = new ModalDialogPage(driver);
+        popUpCartPage = new PopUpCartPage(driver);
         cartPage = new CartPage(driver);
         checkoutPage = new CheckoutPage(driver);
         confirmationPage = new ConfirmationPage(driver);

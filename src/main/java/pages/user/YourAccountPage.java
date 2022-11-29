@@ -14,7 +14,8 @@ public class YourAccountPage extends BasePage {
     @FindBy(css = "#history-link")
     private WebElement orderHistoryBtn;
 
-    public void navigateToOrderHistoryPage() {
+    public YourAccountPage navigateToOrderHistoryPage() {
         orderHistoryBtn.click();
+        return this;
     }
 }

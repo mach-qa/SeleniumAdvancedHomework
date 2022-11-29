@@ -16,22 +16,22 @@ public class BasketTest extends Pages {
     @DisplayName("Verify modal dialog after add Product")
     public void productShouldBeAdded() {
 
-        Cart expectedCart = new Cart();
+        topMenuPage.goToArtCategory();
 
-        topMenuPage.clickArtCategory();
-        productGridPage.clickOnRequestedTitle();
-
-        productDetailsPage.waitForQuantityInput();
+        productGridPage.clickOnRequestedProduct();
         productDetailsPage.setNewQuantity();
-        expectedCart.addProduct(productDetailsPage.saveProductDetails());
+
+        Product product = productDetailsPage.saveProductDetails();
+
         productDetailsPage.addProductToCart();
 
-        for (Product product : expectedCart.getCartList()) {
-            softly.assertThat(product.getProductName()).isEqualTo(modalDialogPage.getAddedProductTitle());
-            softly.assertThat(product.getPrice()).isEqualTo(modalDialogPage.getAddedProductPrice());
-            softly.assertThat(product.getTotalPrice()).isEqualTo(modalDialogPage.getAddedProductSubtotalPrice());
-            softly.assertThat(product.getQuantity()).hasToString(modalDialogPage.getCartCounterText());
-        }
+        Product addedProduct = popUpCartPage.getProduct();
+
+        assertThat(product).usingRecursiveComparison().isEqualTo(addedProduct);
+
+        softly.assertThat(popUpCartPage.getProductSubtotalPrice()).isEqualTo(product.getTotalPrice());
+        softly.assertThat(popUpCartPage.getCartCounterText()).contains(String.valueOf(product.getQuantity()));
+
         softly.assertAll();
     }
 
@@ -43,16 +43,20 @@ public class BasketTest extends Pages {
         Cart expectedCart = new Cart();
 
         for (int i = 0; i < Integer.parseInt(System.getProperty("numberOfProductsAddedToCart")); i++) {
-            productGridPage.clickRandomProduct();
-            productDetailsPage.waitForQuantityInput();
-            productDetailsPage.setRandomQuantity();
+            productGridPage.clickOnRandomProduct();
+
+            productDetailsPage.setRandomQuantity()
+                            .waitForQuantityInput();
+
             expectedCart.addProduct(productDetailsPage.saveProductDetails());
+
             productDetailsPage.addProductToCart();
-            modalDialogPage.waitForContinueShoppingBtn();
-            modalDialogPage.continueShopping();
-            topMenuPage.clickOnLogo();
+            popUpCartPage.continueShopping();
+
+            topMenuPage.navigateToHomePage();
         }
-        topMenuPage.clickOnCartBtn();
+        topMenuPage.goToCartPage();
+
         Cart actualCart = cartPage.toCart();
 
         assertThat(actualCart).usingRecursiveComparison().isEqualTo(expectedCart);

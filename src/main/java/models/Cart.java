@@ -43,7 +43,7 @@ public class Cart {
         totalPrice.setTotalPrice(totalPrice.getPrice() * totalPrice.getQuantity());
     }
 
-    public List<Product> getCartList (){
+    public List<Product> getAmountOfProductsInCart(){
         return getProducts();
     }
 }

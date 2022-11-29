@@ -22,32 +22,46 @@ public class FiltersPage extends BasePage {
     @FindBy(css = "a.ui-slider-handle:nth-child(2)")
     private WebElement leftSliderHandle;
 
-    public void moveLeftSliderHandle() {
-        Double requestedPrice = Double.valueOf(System.getProperty("minimumFilterPrice"));
-
-        move.clickAndHold(leftSliderHandle).perform();
-        while (!Objects.equals(getMinimumPrice(), requestedPrice)) {
-            move.moveByOffset(((getSliderWidthSize() * 5) / 100), 0).perform();
-        }
-        move.release().perform();
-        waitForSpinner();
-    }
-
     @FindBy(css = "a.ui-slider-handle:nth-child(3)")
     private WebElement rightSliderHandle;
 
-    public void moveRightSliderHandle() {
-        Double requestedPrice = Double.valueOf(System.getProperty("maximumFilterPrice"));
-        move.clickAndHold(rightSliderHandle);
-        while (!Objects.equals(getMaximumPrice(), requestedPrice)) {
-            move.moveByOffset(((getSliderWidthSize() * (-5)) / 100), 0).perform();
+    @FindBy(css = "[data-slider-label] p")
+    private WebElement priceRangeText;
+
+    @FindBy(css = ".ui-slider-horizontal")
+    private WebElement priceFilterSlider;
+
+    @FindBy(css = "spinner")
+    private WebElement spinner;
+
+    public FiltersPage moveLeftSliderHandle() {
+        moveSlider(leftSliderHandle, System.getProperty("minimumFilterPrice"));
+        return this;
+    }
+
+    public FiltersPage moveRightSliderHandle() {
+        moveSlider(rightSliderHandle, System.getProperty("maximumFilterPrice"));
+        return this;
+    }
+
+    private void moveSlider(WebElement element, String targetPrice) {
+        Double requestedPrice = Double.valueOf(targetPrice);
+        move.clickAndHold(element);
+        while (!Objects.equals(returnMaxMinPrice(element), requestedPrice)) {
+            if (returnMaxMinPrice(element) > requestedPrice) {
+            move.moveByOffset(((getSliderWidthSize() * (-5)) / 100), 0).perform();}
+            else {
+                move.moveByOffset(((getSliderWidthSize() * 5) / 100), 0).perform();
+            }
         }
         move.release().perform();
         waitForSpinner();
     }
 
-    @FindBy(css = "[data-slider-label] p")
-    private WebElement priceRangeText;
+    private Double returnMaxMinPrice(WebElement element) {
+        Double price;
+        return price = (element.equals(leftSliderHandle)) ? getMinimumPrice() : getMaximumPrice();
+    }
 
     public Double getMinimumPrice() {
         return getPriceFromFilter(priceRangeText, 0);
@@ -57,17 +71,12 @@ public class FiltersPage extends BasePage {
         return getPriceFromFilter(priceRangeText, 1);
     }
 
-    @FindBy(css = ".ui-slider-horizontal")
-    private WebElement priceFilterSlider;
-
     public int getSliderWidthSize() {
         return priceFilterSlider.getSize().getWidth();
     }
 
-    @FindBy(css = "spinner")
-    private WebElement spinner;
-
-    public void waitForSpinner() {
+    public FiltersPage waitForSpinner() {
         waitUntilDisappear(spinner);
+        return this;
     }
 }

@@ -13,20 +13,18 @@ import java.time.Duration;
 public class BaseTest {
 
     public WebDriver driver;
-    private static DriverSetup driverSetup;
     private static PropertiesFactory propertiesFactory;
 
     @BeforeAll
     static void setupDriver() {
         propertiesFactory = PropertiesFactory.getInstance();
-        driverSetup = new DriverSetup();
     }
 
     @BeforeEach
     void beforeEach() {
-        driver = driverSetup.getDriver();
+        driver = new DriverSetup().getDriver();
         driver.get(UrlProvider.homePage);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
     }
 
     @AfterEach

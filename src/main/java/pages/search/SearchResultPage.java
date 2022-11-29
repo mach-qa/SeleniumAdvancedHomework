@@ -22,7 +22,7 @@ public class SearchResultPage extends BasePage {
     @FindBy(css = ".total-products")
     private WebElement quantityOfFoundProducts;
 
-    public String readAmountOfFoundedProducts() {
+    public String saveAmountOfFoundProducts() {
         return quantityOfFoundProducts.getText().replaceAll("[^\\d]", "");
     }
 

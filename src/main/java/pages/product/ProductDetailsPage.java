@@ -15,39 +15,45 @@ public class ProductDetailsPage extends BasePage {
     @FindBy(css = ".add-to-cart")
     private WebElement addToCartBtn;
 
-    public void addProductToCart() {
-        addToCartBtn.click();
-    }
-
     @FindBy(css = "h1[itemprop=\"name\"]")
     private WebElement productTitle;
+
+    @FindBy(css = "input#quantity_wanted")
+    private WebElement quantityInput;
+
+    @FindBy(css = "span[itemprop=\"price\"]")
+    private WebElement productPrice;
+
+    public ProductDetailsPage addProductToCart() {
+        addToCartBtn.click();
+        return this;
+    }
 
     public String getProductTitle() {
         return productTitle.getText();
     }
 
-    @FindBy(css = "input#quantity_wanted")
-    private WebElement quantityInput;
-
     public int getCurrentQuantity() {
         return Integer.parseInt(getValue(quantityInput));
     }
 
-    public void setNewQuantity() {
+    public ProductDetailsPage setNewQuantity() {
+        waitForQuantityInput();
         sendKeysAndClear(quantityInput, System.getProperty("quantityForProduct"));
+        return this;
     }
 
-    public void setRandomQuantity() {
+    public ProductDetailsPage setRandomQuantity() {
+        waitForQuantityInput();
         sendKeysAndClear(quantityInput, String.valueOf(randomNumber
                 (Integer.parseInt(System.getProperty("rangeOfQuantity")))));
+        return this;
     }
 
-    public void waitForQuantityInput() {
+    public ProductDetailsPage waitForQuantityInput() {
         waitToBeVisible(quantityInput);
+        return this;
     }
-
-    @FindBy(css = "span[itemprop=\"price\"]")
-    private WebElement productPrice;
 
     public Double getProductPrice() {
         return getPrice(productPrice);

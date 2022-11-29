@@ -2,7 +2,7 @@ browser:
   browserName: chrome
   attachScreenshot: true
   headlessMode: true
-  timeout: 10
+  timeout: 5
 environment:
   appUrl: http://146.59.32.4/index.php
   title: Home
@@ -22,5 +22,3 @@ testData:
   quantityForProduct: 3
   rangeOfQuantity: 5
   numberOfProductsAddedToCart: 5
-
-

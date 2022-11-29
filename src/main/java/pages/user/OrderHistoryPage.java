@@ -19,12 +19,13 @@ public class OrderHistoryPage extends BasePage {
     @FindBy(css = "tbody [data-link-action=\"view-order-details\"]")
     private List<WebElement> orderDetailsBtn;
 
-    public void clickDetailsOfRequestedOrder(String order) {
-        for (int i = 0; i < sizeOfList(orderNumberList); i++) {
+    public OrderHistoryPage goToDetailsOfRequestedOrder(String order) {
+        for (int i = 0; i < orderNumberList.size(); i++) {
             if (orderNumberList.get(i).getText().equals(order)) {
                 orderDetailsBtn.get(i).click();
             }
         }
+        return this;
     }
 
 }

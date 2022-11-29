@@ -17,20 +17,8 @@ public class TopMenuPage extends BasePage {
     @FindBy(className = "logo")
     private WebElement logoBtn;
 
-    public void clickOnLogo() {
-        logoBtn.click();
-    }
-
     @FindBy(xpath = "//a[@data-depth=0]")
     private List<WebElement> mainCategories;
-
-    public WebElement getMainCategory(int i){
-        return driver.findElements(By.xpath("//a[@data-depth=0]")).get(i);
-    }
-
-    public int sizeOfMainCategoryList() {
-        return sizeOfList(mainCategories);
-    }
 
     @FindBy(css = "#category-3 > a")
     private WebElement clothesCategoryBtn;
@@ -41,65 +29,100 @@ public class TopMenuPage extends BasePage {
     @FindBy(css = "#category-9 > a")
     private WebElement artCategoryBtn;
 
-    public void clickArtCategory() {
-        artCategoryBtn.click();
-    }
-
     @FindBy(css = ".ui-autocomplete-input")
     private WebElement searchInputField;
-
-    public void fillSearchInputField(String text) {
-        sendKeysAndClear(searchInputField, text);
-    }
 
     @FindBy(css = "button .search")
     private WebElement searchInputBtn;
 
-    public void performSearch() {
-        searchInputBtn.click();
-    }
-
     @FindBy(css = "span.product")
     private List<WebElement> productsInDropdown;
+
+    @FindBy(css = "ul.ui-autocomplete")
+    private WebElement dropdownList;
+
+    @FindBy(css = "a span.hidden-sm-down")
+    private WebElement signInBtn;
+
+    @FindBy(css = ".blockcart")
+    private WebElement cartBtn;
+
+    @FindBy(css = ".account")
+    private WebElement profileBtn;
+
+    public TopMenuPage navigateToHomePage() {
+        logoBtn.click();
+        return this;
+    }
+
+    public WebElement getRequiredMainCategory(int i) {
+        return driver.findElements(By.xpath("//a[@data-depth=0]")).get(i);
+    }
+
+    public TopMenuPage goToRequiredMainCategory(int i) {
+        getRequiredMainCategory(i).click();
+        return this;
+    }
+
+    public String getRequiredMainCategoryTitle(int i) {
+        return getRequiredMainCategory(i).getText();
+    }
+
+    public TopMenuPage waitUntilCategoryIsVisible(int i) {
+        waitToBeVisible(getRequiredMainCategory(i));
+        return this;
+    }
+
+    public int countAvailableMainCategories() {
+        return mainCategories.size();
+    }
+
+    public TopMenuPage goToArtCategory() {
+        artCategoryBtn.click();
+        return this;
+    }
+
+    public TopMenuPage fillSearchInputField(String text) {
+        sendKeysAndClear(searchInputField, text);
+        waitForDropdownList();
+        return this;
+    }
+
+    public TopMenuPage performSearch() {
+        searchInputBtn.click();
+        return this;
+    }
 
     public List<WebElement> getDropDownList() {
         return productsInDropdown;
     }
 
-    public boolean verifyProductsInDropdown() {
-        return compareProductsInList(productsInDropdown);
+    public List<String> getSearchResults() {
+        return getTextFromElements(productsInDropdown);
     }
 
-    @FindBy(css = "ul.ui-autocomplete")
-    private WebElement dropdownList;
-
-    public void waitForDropdownList() {
+    public TopMenuPage waitForDropdownList() {
         waitToBeVisible(dropdownList);
+        return this;
     }
 
-    @FindBy(css = "a span.hidden-sm-down")
-    private WebElement signInBtn;
-
-    public void clickSignInBtn () {
+    public void navigateToSignInPage() {
         signInBtn.click();
     }
 
-    @FindBy(css = ".blockcart")
-    private WebElement cartBtn;
-
-    public void clickOnCartBtn() {
+    public void goToCartPage() {
         cartBtn.click();
     }
 
-    @FindBy(css = ".account")
-    private WebElement profileBtn;
-
-    public void navigateToAccountDetails () {
+    public TopMenuPage navigateToAccountDetails() {
+        waitForTopMenuProfile();
         profileBtn.click();
+        return this;
     }
 
-    public void waitForTopMenuProfile() {
+    public TopMenuPage waitForTopMenuProfile() {
         waitToBeVisible(profileBtn);
+        return this;
     }
 
 }
