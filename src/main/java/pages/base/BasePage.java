@@ -31,6 +31,10 @@ public class BasePage {
     public WebDriverWait wait;
     public Random random;
 
+    public String getPageTitle() {
+        return driver.getTitle().toUpperCase();
+    }
+
     public void sendKeys(WebElement element, String textToSet) {
         element.sendKeys(textToSet);
     }
@@ -88,6 +92,10 @@ public class BasePage {
 
     public Product createNewProductObject(String productName, Double price, int quantity) {
         return new Product(productName, price, quantity);
+    }
+
+    public Product createNewCartProductObject(WebElement element) {
+        return new Product(element);
     }
 
     public boolean isElementPresent(WebElement element) {

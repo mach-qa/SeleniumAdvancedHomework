@@ -59,6 +59,20 @@ public class TopMenuPage extends BasePage {
         return driver.findElements(By.xpath("//a[@data-depth=0]")).get(i);
     }
 
+    public TopMenuPage goToRequiredMainCategory(int i) {
+        getRequiredMainCategory(i).click();
+        return this;
+    }
+
+    public String getRequiredMainCategoryTitle(int i) {
+        return getRequiredMainCategory(i).getText();
+    }
+
+    public TopMenuPage waitUntilCategoryIsVisible(int i) {
+        waitToBeVisible(getRequiredMainCategory(i));
+        return this;
+    }
+
     public int countAvailableMainCategories() {
         return mainCategories.size();
     }

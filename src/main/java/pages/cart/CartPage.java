@@ -17,39 +17,14 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(css = "span.price")
-    private List<WebElement> allCartProductsPrices;
-
-    @FindBy(css = ".product-price strong")
-    private List<WebElement> allCartProductsFullPrice;
-
-    @FindBy(css = ".cart-items a.label")
-    private List<WebElement> allCartProductsTitle;
-
-    @FindBy(css = "input.form-control")
-    private List<WebElement> allCartProductsQuantity;
-
     @FindBy(css = "#cart-subtotal-products span.value")
     private WebElement cartSubtotal;
 
+    @FindBy(css = ".cart-item")
+    private List<WebElement> cartItems;
+
     @FindBy(css = "a.btn-primary")
     WebElement proceedToCheckoutBtn;
-
-    public Double getVisibleProductsPrices(int i) {
-        return getPrice(allCartProductsPrices.get(i));
-    }
-
-    public Double getProductsFullPrice(int i) {
-        return getPrice(allCartProductsFullPrice.get(i));
-    }
-
-    private String getVisibleProductsTitle(int i) {
-        return allCartProductsTitle.get(i).getText();
-    }
-
-    private int getVisibleProductsQuantity(int i) {
-        return Integer.parseInt(getValue(allCartProductsQuantity.get(i)));
-    }
 
     private BigDecimal getSumOfProductsCart () {
         return BigDecimal.valueOf(getPrice(cartSubtotal));
@@ -59,15 +34,11 @@ public class CartPage extends BasePage {
         return new Cart(saveCartListOfProducts(), getSumOfProductsCart());
     }
 
-    //TODO Sprawdzić Ostatnie zajęcia z Q&A aby sprawdzić jak nie wykorzystać tylu list w obiektach
     private List<Product> saveCartListOfProducts() {
         List<Product> cartProducts = new ArrayList<>();
 
-        for (int i = 0; i < allCartProductsTitle.size(); i++) {
-            Product cartProduct = createNewProductObject(
-                    getVisibleProductsTitle(i),
-                    getVisibleProductsPrices(i),
-                    getVisibleProductsQuantity(i));
+        for (WebElement cartItem : cartItems) {
+            Product cartProduct = createNewCartProductObject(cartItem);
             cartProducts.add(cartProduct);
         }
         return cartProducts;

@@ -34,29 +34,33 @@ public class FiltersPage extends BasePage {
     @FindBy(css = "spinner")
     private WebElement spinner;
 
-    //TODO poprawawić Slidera tak aby był jeden uniwersalny private
-
     public FiltersPage moveLeftSliderHandle() {
-        Double requestedPrice = Double.valueOf(System.getProperty("minimumFilterPrice"));
-
-        move.clickAndHold(leftSliderHandle).perform();
-        while (!Objects.equals(getMinimumPrice(), requestedPrice)) {
-            move.moveByOffset(((getSliderWidthSize() * 5) / 100), 0).perform();
-        }
-        move.release().perform();
-        waitForSpinner();
+        moveSlider(leftSliderHandle, System.getProperty("minimumFilterPrice"));
         return this;
     }
 
     public FiltersPage moveRightSliderHandle() {
-        Double requestedPrice = Double.valueOf(System.getProperty("maximumFilterPrice"));
-        move.clickAndHold(rightSliderHandle);
-        while (!Objects.equals(getMaximumPrice(), requestedPrice)) {
-            move.moveByOffset(((getSliderWidthSize() * (-5)) / 100), 0).perform();
+        moveSlider(rightSliderHandle, System.getProperty("maximumFilterPrice"));
+        return this;
+    }
+
+    private void moveSlider(WebElement element, String targetPrice) {
+        Double requestedPrice = Double.valueOf(targetPrice);
+        move.clickAndHold(element);
+        while (!Objects.equals(returnMaxMinPrice(element), requestedPrice)) {
+            if (returnMaxMinPrice(element) > requestedPrice) {
+            move.moveByOffset(((getSliderWidthSize() * (-5)) / 100), 0).perform();}
+            else {
+                move.moveByOffset(((getSliderWidthSize() * 5) / 100), 0).perform();
+            }
         }
         move.release().perform();
         waitForSpinner();
-        return this;
+    }
+
+    private Double returnMaxMinPrice(WebElement element) {
+        Double price;
+        return price = (element.equals(leftSliderHandle)) ? getMinimumPrice() : getMaximumPrice();
     }
 
     public Double getMinimumPrice() {

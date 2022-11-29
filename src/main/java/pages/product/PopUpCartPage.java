@@ -76,6 +76,7 @@ public class PopUpCartPage extends BasePage {
     }
 
     public Product getProduct() {
+        waitToBeVisible(productTitle);
         return createNewProductObject(getProductTitle(), getProductPrice(), getProductQuantity());
     }
 }

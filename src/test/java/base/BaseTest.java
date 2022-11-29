@@ -24,7 +24,7 @@ public class BaseTest {
     void beforeEach() {
         driver = new DriverSetup().getDriver();
         driver.get(UrlProvider.homePage);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
     }
 
     @AfterEach

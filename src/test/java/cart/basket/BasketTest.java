@@ -16,27 +16,6 @@ public class BasketTest extends Pages {
     @DisplayName("Verify modal dialog after add Product")
     public void productShouldBeAdded() {
 
-//        Cart expectedCart = new Cart();
-//
-//        topMenuPage.goToArtCategory();
-//
-//        productGridPage.clickOnRequestedProduct();
-//        productDetailsPage.setNewQuantity();
-//
-//        expectedCart.addProduct(productDetailsPage.saveProductDetails());
-//
-//        productDetailsPage.addProductToCart();
-//
-//        //TODO Pomyslec czy nie można zrobić tego jak ponizej z wykorzystaniem usingRecursiveComparison()
-//
-//        for (Product product : expectedCart.getAmountOfProductsInCart()) {
-//            softly.assertThat(product.getProductName()).isEqualTo(modalDialogPage.getAddedProductTitle());
-//            softly.assertThat(product.getPrice()).isEqualTo(modalDialogPage.getAddedProductPrice());
-//            softly.assertThat(product.getTotalPrice()).isEqualTo(modalDialogPage.getAddedProductSubtotalPrice());
-//            softly.assertThat(product.getQuantity()).hasToString(modalDialogPage.getCartCounterText());
-//        }
-//        softly.assertAll();
-
         topMenuPage.goToArtCategory();
 
         productGridPage.clickOnRequestedProduct();
@@ -50,11 +29,10 @@ public class BasketTest extends Pages {
 
         assertThat(product).usingRecursiveComparison().isEqualTo(addedProduct);
 
-        softly.assertThat(product.getTotalPrice()).isEqualTo(popUpCartPage.getProductSubtotalPrice());
-        softly.assertThat(product.getQuantity()).hasToString(popUpCartPage.getCartCounterText());
+        softly.assertThat(popUpCartPage.getProductSubtotalPrice()).isEqualTo(product.getTotalPrice());
+        softly.assertThat(popUpCartPage.getCartCounterText()).contains(String.valueOf(product.getQuantity()));
 
         softly.assertAll();
-
     }
 
     @Test
@@ -67,7 +45,8 @@ public class BasketTest extends Pages {
         for (int i = 0; i < Integer.parseInt(System.getProperty("numberOfProductsAddedToCart")); i++) {
             productGridPage.clickOnRandomProduct();
 
-            productDetailsPage.setRandomQuantity();
+            productDetailsPage.setRandomQuantity()
+                            .waitForQuantityInput();
 
             expectedCart.addProduct(productDetailsPage.saveProductDetails());
 
@@ -76,7 +55,6 @@ public class BasketTest extends Pages {
 
             topMenuPage.navigateToHomePage();
         }
-
         topMenuPage.goToCartPage();
 
         Cart actualCart = cartPage.toCart();

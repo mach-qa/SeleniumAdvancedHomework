@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import pages.menu.TopMenuPage;
 
 public class CategoriesTest extends Pages {
 
@@ -15,13 +16,12 @@ public class CategoriesTest extends Pages {
     public void verifyDetailsInCategories() {
 
         for (int i = 0; i< topMenuPage.countAvailableMainCategories(); i++) {
-            //TODO poprawić aby nie było WebElementu
-            topMenuPage.getRequiredMainCategory(i).click();
-            topMenuPage.waitToBeVisible(topMenuPage.getRequiredMainCategory(i));
+            topMenuPage.goToRequiredMainCategory(i)
+                    .waitUntilCategoryIsVisible(i);
 
-            String categoryName = topMenuPage.getRequiredMainCategory(i).getText();
+            String categoryName = topMenuPage.getRequiredMainCategoryTitle(i);
 
-            softly.assertThat(driver.getTitle().toUpperCase()).isEqualTo(categoryName);
+            softly.assertThat(topMenuPage.getPageTitle()).isEqualTo(categoryName);
 
             String countedProducts = productGridPage.getAmountOfProducts();
             String labelCounterText = searchResultsPage.readTextForFoundedProducts();
