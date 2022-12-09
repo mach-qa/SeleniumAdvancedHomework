@@ -16,8 +16,7 @@ public class CategoriesTest extends Pages {
     public void verifyDetailsInCategories() {
 
         for (int i = 0; i< topMenuPage.countAvailableMainCategories(); i++) {
-            topMenuPage.goToRequiredMainCategory(i)
-                    .waitUntilCategoryIsVisible(i);
+            topMenuPage.goToRequiredMainCategory(i);
 
             String categoryName = topMenuPage.getRequiredMainCategoryTitle(i);
 

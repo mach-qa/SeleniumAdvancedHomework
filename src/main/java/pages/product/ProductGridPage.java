@@ -40,12 +40,10 @@ public class ProductGridPage extends BasePage {
     }
 
     public ProductGridPage clickOnRequestedProduct() {
-        for (WebElement item : allVisibleItems) {
-            if (item.getText().equals(System.getProperty("productForCart"))) {
-                item.click();
-                break;
-            }
-        }
+        allVisibleItems.stream().filter(item -> item.getText()
+                .equals(System.getProperty("productForCart")))
+                .findFirst()
+                .ifPresent(WebElement::click);
         return this;
     }
 

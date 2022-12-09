@@ -94,10 +94,6 @@ public class BasePage {
         return new Product(productName, price, quantity);
     }
 
-    public Product createNewCartProductObject(WebElement element) {
-        return new Product(element);
-    }
-
     public boolean isElementPresent(WebElement element) {
         try {
             element.isDisplayed();

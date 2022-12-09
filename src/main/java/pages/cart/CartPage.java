@@ -10,6 +10,7 @@ import pages.base.BasePage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartPage extends BasePage {
 
@@ -35,13 +36,7 @@ public class CartPage extends BasePage {
     }
 
     private List<Product> saveCartListOfProducts() {
-        List<Product> cartProducts = new ArrayList<>();
-
-        for (WebElement cartItem : cartItems) {
-            Product cartProduct = createNewCartProductObject(cartItem);
-            cartProducts.add(cartProduct);
-        }
-        return cartProducts;
+        return cartItems.stream().map(Product::new).collect(Collectors.toList());
     }
 
     public CartPage startCheckoutProcess() {
