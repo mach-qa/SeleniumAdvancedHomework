@@ -61,6 +61,7 @@ public class TopMenuPage extends BasePage {
 
     public TopMenuPage goToRequiredMainCategory(int i) {
         getRequiredMainCategory(i).click();
+        waitUntilCategoryIsVisible(i);
         return this;
     }
 

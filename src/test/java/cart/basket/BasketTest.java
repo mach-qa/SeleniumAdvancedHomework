@@ -57,9 +57,7 @@ public class BasketTest extends Pages {
         }
         topMenuPage.goToCartPage();
 
-        Cart actualCart = cartPage.toCart();
-
-        assertThat(actualCart).usingRecursiveComparison().isEqualTo(expectedCart);
+        assertThat(cartPage.toCart()).usingRecursiveComparison().isEqualTo(expectedCart);
     }
 
 }

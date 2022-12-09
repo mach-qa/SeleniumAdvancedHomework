@@ -30,4 +30,9 @@ public class Product {
                         .getAttribute("value"));
         this.totalPrice = price * quantity;
     }
+
+    public void updateQuantity(int quantity) {
+        this.quantity+=quantity;
+        this.totalPrice = price *this.quantity;
+    }
 }

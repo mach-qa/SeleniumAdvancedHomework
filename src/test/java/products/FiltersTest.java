@@ -15,8 +15,8 @@ public class FiltersTest extends Pages {
      public void filterSliderShouldBeDraggable() {
          topMenuPage.goToArtCategory();
 
-         filterPage.moveLeftSliderHandle()
-                 .moveRightSliderHandle();
+         filterPage.moveLeftSliderHandle(System.getProperty("minimumFilterPrice"))
+                 .moveRightSliderHandle(System.getProperty("maximumFilterPrice"));
 
          for (int i = 0; i < productGridPage.getAmountOfProductPricesFromList() ; i++) {
              softly.assertThat(productGridPage.getVisibleProductsPrices(i))

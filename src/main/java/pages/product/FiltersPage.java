@@ -2,7 +2,6 @@ package pages.product;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import pages.base.BasePage;
 
@@ -13,8 +12,6 @@ public class FiltersPage extends BasePage {
     public FiltersPage(WebDriver driver) {
         super(driver);
     }
-
-    Actions move = new Actions(driver);
 
     @FindBy(css = ".faceted-slider")
     private WebElement sliderBox;
@@ -34,33 +31,32 @@ public class FiltersPage extends BasePage {
     @FindBy(css = "spinner")
     private WebElement spinner;
 
-    public FiltersPage moveLeftSliderHandle() {
-        moveSlider(leftSliderHandle, System.getProperty("minimumFilterPrice"));
+    public FiltersPage moveLeftSliderHandle(String minimumFilterPrice) {
+        moveSlider(leftSliderHandle, minimumFilterPrice);
         return this;
     }
 
-    public FiltersPage moveRightSliderHandle() {
-        moveSlider(rightSliderHandle, System.getProperty("maximumFilterPrice"));
+    public FiltersPage moveRightSliderHandle(String maximumFilterPrice) {
+        moveSlider(rightSliderHandle, maximumFilterPrice);
         return this;
     }
 
     private void moveSlider(WebElement element, String targetPrice) {
         Double requestedPrice = Double.valueOf(targetPrice);
-        move.clickAndHold(element);
+        action.clickAndHold(element);
         while (!Objects.equals(returnMaxMinPrice(element), requestedPrice)) {
             if (returnMaxMinPrice(element) > requestedPrice) {
-            move.moveByOffset(((getSliderWidthSize() * (-5)) / 100), 0).perform();}
+                action.moveByOffset(((getSliderWidthSize() * (-5)) / 100), 0).perform();}
             else {
-                move.moveByOffset(((getSliderWidthSize() * 5) / 100), 0).perform();
+                action.moveByOffset(((getSliderWidthSize() * 5) / 100), 0).perform();
             }
         }
-        move.release().perform();
+        action.release().perform();
         waitForSpinner();
     }
 
     private Double returnMaxMinPrice(WebElement element) {
-        Double price;
-        return price = (element.equals(leftSliderHandle)) ? getMinimumPrice() : getMaximumPrice();
+        return element.equals(leftSliderHandle) ? getMinimumPrice() : getMaximumPrice();
     }
 
     public Double getMinimumPrice() {

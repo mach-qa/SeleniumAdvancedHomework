@@ -15,32 +15,20 @@ public class Cart {
     private List<Product> products = new ArrayList<>();
     private BigDecimal totalOrderCost = new BigDecimal("0.00");
 
-    public void addProduct(Product product) {
-        boolean loopResult = true;
+    public void addProduct(Product productToAdd) {
+        increaseTotalOrderCost(productToAdd.getPrice(), productToAdd.getQuantity());
 
-        for (Product value : products) {
-            if (value.getProductName().equals(product.getProductName())) {
-                increaseQuantity(value, product);
-                recalculateTotalPrice(value);
-                loopResult = false;
-                break;
+        for (Product product : products) {
+            if (product.getProductName().equals(productToAdd.getProductName())) {
+                product.updateQuantity(productToAdd.getQuantity());
+                return;
             }
         }
-        if (loopResult) {products.add(product);}
-        increaseTotalOrderCost(product.getPrice(), product.getQuantity());
+        products.add(productToAdd);
     }
 
     private void increaseTotalOrderCost(Double productPrice, int productQuantity) {
         this.totalOrderCost = totalOrderCost.add(new BigDecimal(String.valueOf(productPrice * productQuantity)));
-    }
-
-    private void increaseQuantity (Product actualQuantity, Product newQuantity) {
-        int quantity = actualQuantity.getQuantity();
-        actualQuantity.setQuantity(quantity + newQuantity.getQuantity());
-    }
-
-    public void recalculateTotalPrice(Product totalPrice) {
-        totalPrice.setTotalPrice(totalPrice.getPrice() * totalPrice.getQuantity());
     }
 
     public List<Product> getAmountOfProductsInCart(){
