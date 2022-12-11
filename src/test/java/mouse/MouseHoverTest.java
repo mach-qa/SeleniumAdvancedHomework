@@ -1,4 +1,4 @@
-package products;
+package mouse;
 
 import base.Pages;
 import org.junit.jupiter.api.DisplayName;
