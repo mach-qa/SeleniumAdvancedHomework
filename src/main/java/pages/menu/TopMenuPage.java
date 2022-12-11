@@ -23,8 +23,14 @@ public class TopMenuPage extends BasePage {
     @FindBy(css = "#category-3 > a")
     private WebElement clothesCategoryBtn;
 
+    @FindBy(css = "#category-4 > a")
+    private WebElement menCategoryBtn;
+
     @FindBy(css = "#category-6 > a")
     private WebElement accessoriesCategoryBtn;
+
+    @FindBy(css = "#category-8 > a")
+    private WebElement homeAccessoriesSubcategoryBtn;
 
     @FindBy(css = "#category-9 > a")
     private WebElement artCategoryBtn;
@@ -83,6 +89,28 @@ public class TopMenuPage extends BasePage {
         return this;
     }
 
+    public TopMenuPage goToMenSubcategory() {
+        menCategoryBtn.click();
+        return this;
+    }
+
+    public TopMenuPage goToHomeAccessoriesSubcategory() {
+        homeAccessoriesSubcategoryBtn.click();
+        return this;
+    }
+
+    public String getMenCategoryText() {
+        return menCategoryBtn.getText();
+    }
+
+    public String getHomeAccessoriesCategoryText() {
+        return homeAccessoriesSubcategoryBtn.getText();
+    }
+
+    public String getArtCategoryText() {
+        return artCategoryBtn.getText();
+    }
+
     public TopMenuPage fillSearchInputField(String text) {
         sendKeysAndClear(searchInputField, text);
         waitForDropdownList();
@@ -123,6 +151,21 @@ public class TopMenuPage extends BasePage {
 
     public TopMenuPage waitForTopMenuProfile() {
         waitToBeVisible(profileBtn);
+        return this;
+    }
+
+    public TopMenuPage moveMouseToClothes() {
+        mouseHover(clothesCategoryBtn);
+        return this;
+    }
+
+    public TopMenuPage moveMouseToAccessories() {
+        mouseHover(accessoriesCategoryBtn);
+        return this;
+    }
+
+    public TopMenuPage moveMouseToArt() {
+        mouseHover(artCategoryBtn);
         return this;
     }
 

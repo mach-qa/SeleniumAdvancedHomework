@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import pages.cart.CartPage;
 import pages.checkout.CheckoutPage;
 import pages.checkout.ConfirmationPage;
+import pages.menu.CategoryPage;
 import pages.menu.TopMenuPage;
 import pages.product.FiltersPage;
 import pages.product.PopUpCartPage;
@@ -25,6 +26,7 @@ public class Pages extends BaseTest {
 
     public ProductGridPage productGridPage;
     public TopMenuPage topMenuPage;
+    public CategoryPage categoryPage;
     public SearchResultPage searchResultsPage;
     public FiltersPage filterPage;
     public ProductDetailsPage productDetailsPage;
@@ -45,6 +47,7 @@ public class Pages extends BaseTest {
     public void setPagesComponent() {
         productGridPage = new ProductGridPage(driver);
         topMenuPage = new TopMenuPage(driver);
+        categoryPage = new CategoryPage(driver);
         searchResultsPage = new SearchResultPage(driver);
         filterPage = new FiltersPage(driver);
         productDetailsPage = new ProductDetailsPage(driver);
